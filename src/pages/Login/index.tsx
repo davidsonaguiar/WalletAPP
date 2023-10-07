@@ -40,7 +40,7 @@ function Login() {
           <button type="submit" className="login-form-button">ENTRAR</button>
         </form>
         <span className="login-or">OU</span>
-        <button className="login-button-register" type="button">REGISTRE-SE</button>
+        <button className="login-button-register" type="button" onClick={() => navigate("/register")}>REGISTRE-SE</button>
         <div className="login-border-bottom"></div>
       </div>
     </>

@@ -104,7 +104,7 @@ function ModalAddTransaction({
     <Modal.Container visible={visible}>
       <Modal.Fields>
         <SectionHeader.Container>
-          <SectionHeader.Title text="Adicionar Conta" />
+          <SectionHeader.Title text="Adicionar Transação" />
         </SectionHeader.Container>
         <Select
           id="type"
