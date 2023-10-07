@@ -69,7 +69,10 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
         }
 
       </span>
-      <span className="account-card-value">R$ {value}</span>
+      <span className="account-card-value">{value.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}</span>
     </li>
   );
 }

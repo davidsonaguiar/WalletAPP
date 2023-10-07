@@ -4,10 +4,11 @@ interface InputProps {
   label: string;
   id: string;
   value: string;
-  handleChange: (value: ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Input({ id, value, label, handleChange }: InputProps) {
+function Input({ id, type = "text", value, label, handleChange }: InputProps) {
 
   return(
     <>
@@ -15,7 +16,7 @@ function Input({ id, value, label, handleChange }: InputProps) {
         { label }
       </label>
       <input 
-        type="text" 
+        type={type}
         id={id} 
         className="modal-fields-input" 
         value={value}

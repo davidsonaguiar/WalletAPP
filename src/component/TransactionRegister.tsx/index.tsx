@@ -1,20 +1,49 @@
+import ModalEditTransaction from "../ModalEditTransaction";
+import { AiOutlineEdit } from "react-icons/ai";
+import { Account, Transaction } from "../../types";
+import { useState } from "react";
+
 interface TransactionRegisterProps {
-  name: string;
-  value: number;
-  category: string;
-  date: string;
-  description: string;
+  transaction: Transaction;
+  accounts: Account[];
 }
 
-function TransactionRegister(props: TransactionRegisterProps) {
-  return(
-    <tr className="transaction-register-container">
-      <td>{props.name}</td>
-      <td>R$ {props.value}</td>
-      <td>{props.category}</td>
-      <td>{props.date}</td>
-      <td>{props.description}</td>
-    </tr>
+function TransactionRegister({transaction, accounts}: TransactionRegisterProps) {
+
+  const [ edit, setEdit ] = useState<boolean>(false);
+
+  function handleEdit() {
+    setEdit(!edit);
+  }
+
+  return (
+    <>
+      <tr className="transaction-register-container">
+        <td>{transaction.account.name}</td>
+        <td>
+          {
+            transaction.value.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })
+          }
+        </td>
+        <td>{transaction.category.name}</td>
+        <td>{new Date(transaction.date).toLocaleDateString()}</td>
+        <td>{transaction.description}</td>
+        <td>
+          <button className="transaction-register-edit" onClick={handleEdit}>
+            <AiOutlineEdit size={20}/>
+          </button>
+        </td>
+      </tr>
+      <ModalEditTransaction
+        accounts={accounts}
+        transaction={transaction}
+        handleClick={handleEdit}
+        visible={edit}
+      />
+    </>
   );
 }
 

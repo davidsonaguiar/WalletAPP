@@ -14,6 +14,7 @@ function TransactionTable({ children }: TransactionTableProps) {
           <th className="transaction-table-header-col">CATEGORIA</th>
           <th className="transaction-table-header-col">DATA</th>
           <th className="transaction-table-header-col">DESCRICÃO</th>
+          <th className="transaction-table-header-col">EDITE</th>
         </tr>
       </thead>
       <tbody className="transaction-table-body">
