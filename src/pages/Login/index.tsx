@@ -13,6 +13,7 @@ function Login() {
     event.preventDefault();
     const { login, password } = auth;
     const response = await api.post("/auth/login", { login, password });
+    
     if(response.status === 200) {
       const data = await response.data;
       sessionStorage.setItem("token", data);

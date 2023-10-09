@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: sessionStorage.getItem("token") ? <App /> : <Login />,
+        element: <App />,
       }, 
       {
         path: "/register",

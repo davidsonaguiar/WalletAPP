@@ -13,6 +13,7 @@ import ModalAddTransaction from "../../component/ModalAddTransaction";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Account, Transaction } from "../../types/index.ts";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [transactions, setTransactions] = useState({
@@ -26,6 +27,24 @@ function App() {
     edit: false,
   });
 
+  const navigate = useNavigate();
+
+  async function authUser() {
+    const token = sessionStorage.getItem("token");
+    if(!token) {
+      navigate("/login");
+    } else {
+      const auth = await api.get("/auth")
+      if(auth.status !== 200) {
+        navigate("/login");
+      }
+    }
+  }
+
+  useEffect(() => {
+    authUser();
+  }) 
+
   useEffect(() => {
     api
       .get("/accounts")
@@ -35,7 +54,9 @@ function App() {
           accounts: response.data,
         }))
       )
-      .catch((error) => console.log(error));
+      .catch(() => {
+        navigate("/login")
+      });
   }, [account.modalVisible, account.edit]);
 
   useEffect(() => {
@@ -47,8 +68,10 @@ function App() {
           transactions: response.data,
         }));
       })
-      .catch((error) => console.log(error));
-  }, [account]);
+      .catch(() => {
+        navigate("/login");
+      });
+  }, [account, transactions.modalVisible, account.edit, account.modalVisible]);
 
   function modalAccountVisible() {
     setAccount((prev) => ({
