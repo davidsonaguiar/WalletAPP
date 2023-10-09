@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const URL_BASE = import.meta.env.VITE_REACT_APP_API_URL;
+console.log(URL_BASE)
+
 const api = axios.create({
-  // baseURL: "https://walletapi-i4am.onrender.com",
-  baseURL: "http://localhost:3001"
+  baseURL: URL_BASE,
 });
 
 api.interceptors.request.use((config) => {
