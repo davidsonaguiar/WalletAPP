@@ -14,18 +14,41 @@ import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { Account, Transaction } from "../../types/index.ts";
 import { useNavigate } from "react-router-dom";
+import ModalEditTransaction from "../../component/ModalEditTransaction/index.tsx";
+
+type AccountList = {
+  id: string,
+  name: string,
+  value: number
+}
+
+type StateType = {
+  accounts: AccountList[],
+  transactions: Transaction[],
+  addAccount: boolean,
+  editAccount: boolean,
+  addTransaction: boolean,
+  editTransaction: {
+    open: boolean,
+    transaction?: Transaction,
+  }
+}
+
+const initialState = {
+  accounts: [],
+  transactions: [],
+  addAccount: false,
+  editAccount: false,
+  addTransaction: false,
+  editTransaction: {
+    open: false,
+    transaction: undefined,
+  }
+}
 
 function App() {
-  const [transactions, setTransactions] = useState({
-    transactions: [],
-    modalVisible: false,
-  });
-
-  const [account, setAccount] = useState({
-    accounts: [],
-    modalVisible: false,
-    edit: false,
-  });
+  
+  const [ state, setState ] = useState<StateType>(initialState);
 
   const navigate = useNavigate();
 
@@ -41,127 +64,133 @@ function App() {
     }
   }
 
+  async function getTransactions() {
+    const responseTransaction = await api.get("/transactions");
+    const responseAccount = await api.get("/accounts");
+
+    if(responseTransaction.status === 200 && responseAccount.status === 200) {
+      
+      const dataAccount = await responseAccount.data;
+      const dataTransaction: Transaction[] = await responseTransaction.data;
+
+      const accounts: AccountList[] = dataAccount.map((account: Account) => {
+        const accountValue = dataTransaction.reduce((acc: number, transaction: Transaction) => {
+          if(transaction.account.name === account.name) {
+            return transaction.category.type === "Ganhos"
+              ? acc + transaction.value
+              : acc - transaction.value
+          } else {
+            return acc
+          }
+        }, 0);
+
+        return {
+          ...account,
+          value: accountValue
+        }
+      })
+
+      setState((prev) => ({
+        ...prev,
+        transactions: dataTransaction,
+        accounts
+      }));
+
+    } else {
+      console.log("Error", responseTransaction.statusText);
+    }
+  }
+  
+    function addAccount() {
+      setState((prev) => ({
+        ...prev,
+        addAccount: !prev.addAccount
+      }))
+    }
+
+  function editAccount(status: boolean) {
+    setState((prev) => ({
+      ...prev,
+      editAccount: status
+    }));
+  }
+
+  function addTransaction() {
+    setState((prev) => ({
+      ...prev,
+      addTransaction: !prev.addTransaction
+    }));
+  }
+
+  function editTransaction(open: boolean, transaction?: Transaction) {
+    console.log(open)
+
+    setState((prev => ({
+      ...prev,
+      editTransaction: {
+        open,
+        transaction
+      }
+    })))
+  }
+
   useEffect(() => {
     authUser();
-  }) 
+    getTransactions();
+  }, [state.editAccount, state.addAccount, state.editTransaction, state.addTransaction]);
 
-  useEffect(() => {
-    api
-      .get("/accounts")
-      .then((response) =>
-        setAccount((prev) => ({
-          ...prev,
-          accounts: response.data,
-        }))
-      )
-      .catch(() => {
-        navigate("/login")
-      });
-  }, [account.modalVisible, account.edit]);
-
-  useEffect(() => {
-    api
-      .get("/transactions")
-      .then((response) => {
-        setTransactions((prev) => ({
-          ...prev,
-          transactions: response.data,
-        }));
-      })
-      .catch(() => {
-        navigate("/login");
-      });
-  }, [account, transactions.modalVisible, account.edit, account.modalVisible]);
-
-  function modalAccountVisible() {
-    setAccount((prev) => ({
-      ...prev,
-      modalVisible: !prev.modalVisible,
-    }));
-  }
-
-  function modalTransactionVisible() {
-    setTransactions((prev) => ({
-      ...prev,
-      modalVisible: !prev.modalVisible,
-    }));
-  }
-
-  function accountEdit() {
-    setAccount((prev) => ({ ...prev, edit: !prev.edit }));
-  }
-
-
-  const accountsList = account.accounts?.map((account: Account) => {
-    const value = transactions.transactions.reduce(
-      (acc, transaction: Transaction) => {
-        if(transaction.account.name === account.name) {
-          return transaction.category.type === "Ganhos"
-            ? acc + transaction.value
-            : acc - transaction.value;
-        }
-        return acc}, 0
-    );
-
-    return (
-      <AccountCard
-        key={account.id}
-        id={account.id}
-        title={account.name}
-        value={value}
-        edit={accountEdit}
-      />
-    );
-  });
-
-  const transactionsList = transactions.transactions.map(
-    (transaction: Transaction) => {
-      return (
-        <TransactionRegister
-          accounts={account.accounts}
-          key={transaction.id}
-          transaction={transaction}
-        />
-      );
-    }
-  );
-
-  return (
+  return(
     <>
       <Header />
       <SectionHeader.Container>
         <SectionHeader.Title text="Minhas Contas" />
-        <Button
-          icon={AiOutlinePlus}
-          text="Conta"
-          handleClick={modalAccountVisible}
-        />
+        <Button text="Conta" icon={AiOutlinePlus} handleClick={addAccount}/>
       </SectionHeader.Container>
       <AccountList>
-        {accountsList.length > 0 ? accountsList : <NoAccount />}
+        { 
+          state.accounts.length > 0 
+          ? state.accounts.map(account => (
+              <AccountCard 
+                edit={editAccount}
+                key={account.id}
+                id={account.id}
+                title={account.name}
+                value={account.value}
+              />
+            ))
+          : <NoAccount />
+        }
       </AccountList>
       <SectionHeader.Container>
-        <SectionHeader.Title text="Minas Transações" />
-        <Button
-          text="Transação"
-          icon={AiOutlinePlus}
-          handleClick={modalTransactionVisible}
-        />
+        <SectionHeader.Title text="Minhas Transações"/>
+        <Button text="Transação" icon={AiOutlinePlus} handleClick={addTransaction}/>
       </SectionHeader.Container>
-      <TransactionTable>{transactionsList}</TransactionTable>
+      <TransactionTable>
+        {
+          state.transactions.map(transaction => (
+            <TransactionRegister 
+              key={transaction.id}
+              transaction={transaction}
+              handleClick={editTransaction}
+            />
+          ))
+        }
+      </TransactionTable>
       <Footer />
-
-      <ModalAddAccount
-        visible={account.modalVisible}
-        handleClick={modalAccountVisible}
-      />
-      <ModalAddTransaction
-        handleClick={modalTransactionVisible}
-        accounts={account.accounts}
-        visible={transactions.modalVisible}
-      />
+      <ModalAddAccount visible={state.addAccount} handleClick={addAccount}/>
+      <ModalAddTransaction accounts={state.accounts} visible={state.addTransaction} handleClick={addTransaction}/>
+      {
+        state.editTransaction.transaction &&
+          <ModalEditTransaction
+            accounts={state.accounts}
+            transaction={state.editTransaction.transaction}
+            handleClick={editTransaction}
+            visible={state.editTransaction.open}
+          />
+      } 
     </>
   );
+
 }
 
 export default App;

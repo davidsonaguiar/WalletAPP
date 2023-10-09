@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-   baseURL: "https://walletapi-i4am.onrender.com",
-  //baseURL: "http://localhost:3001"
+  // baseURL: "https://walletapi-i4am.onrender.com",
+  baseURL: "http://localhost:3001"
 });
 
 api.interceptors.request.use((config) => {

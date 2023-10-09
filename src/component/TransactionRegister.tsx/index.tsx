@@ -1,18 +1,18 @@
-import ModalEditTransaction from "../ModalEditTransaction";
 import { AiOutlineEdit } from "react-icons/ai";
-import { Account, Transaction } from "../../types";
+import { Transaction } from "../../types";
 import { useState } from "react";
 
 interface TransactionRegisterProps {
   transaction: Transaction;
-  accounts: Account[];
+  handleClick: (open: boolean, transaction: Transaction) => void;
 }
 
-function TransactionRegister({transaction, accounts}: TransactionRegisterProps) {
+function TransactionRegister({transaction, handleClick}: TransactionRegisterProps) {
 
   const [ edit, setEdit ] = useState<boolean>(false);
 
   function handleEdit() {
+    handleClick(true, transaction);
     setEdit(!edit);
   }
 
@@ -37,12 +37,6 @@ function TransactionRegister({transaction, accounts}: TransactionRegisterProps) 
           </button>
         </td>
       </tr>
-      <ModalEditTransaction
-        accounts={accounts}
-        transaction={transaction}
-        handleClick={handleEdit}
-        visible={edit}
-      />
     </>
   );
 }

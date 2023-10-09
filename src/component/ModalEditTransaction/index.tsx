@@ -12,7 +12,7 @@ interface ModalEditAccountProps {
   accounts: Account[];
   visible?: boolean;
   transaction: Transaction;
-  handleClick: () => void;
+  handleClick: (open: boolean) => void;
 }
 
 function ModalEditTransaction({
@@ -76,15 +76,17 @@ function ModalEditTransaction({
 
     const response = await api.put("/transactions/" + transaction.id, body);
 
+    console.log(response.status);
+
     if (response.status === 200) {
-      handleClick();
+      handleClick(false);
     }
   }
 
   async function deleteTransaction() {
     const response = await api.delete("/transactions/" + transaction.id);
     if (response.status === 200) {
-      handleClick();
+      handleClick(false);
     }
   }
 
@@ -159,7 +161,7 @@ function ModalEditTransaction({
         <Button
           text="Cancelar"
           icon={AiOutlineClose}
-          handleClick={handleClick}
+          handleClick={() => handleClick(false)}
         />
       </Modal.Buttons>
     </Modal.Container>

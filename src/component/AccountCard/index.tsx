@@ -6,7 +6,7 @@ interface AccountCardProps {
   id: string;
   title: string;
   value: number;
-  edit: () => void;
+  edit: (status: boolean) => void;
 }
 
 function AccountCard({ id, title, value, edit }: AccountCardProps) {
@@ -18,14 +18,14 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
   
   function handleClickEdit() {
     setEditCard((prev) => !prev);
-    edit();
+    edit(true);
   } 
 
   function handleClickConfirm() {
     api.put("/accounts/" + id, { name: accountName })
       .then(() => {
-        edit();
-        handleClickEdit();
+        edit(false);
+        setEditCard((prev) => !prev);
         setAccountName(accountName)
       })
       .catch(console.log);
@@ -34,7 +34,7 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
   function handleClickDelete() {
     api.delete("/accounts/" + id)
       .then(() => {
-        edit();
+        edit(false);
       })
       .catch(console.log);
   }
@@ -69,7 +69,7 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
         }
 
       </span>
-      <span className="account-card-value">{value.toLocaleString("pt-BR", {
+      <span className="account-card-value">{value?.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         })}</span>
