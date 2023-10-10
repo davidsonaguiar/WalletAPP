@@ -16,6 +16,11 @@ function TransactionRegister({transaction, handleClick}: TransactionRegisterProp
     setEdit(!edit);
   }
 
+  function normalizeDate(date: string) {
+    return date.split("T")[0]
+      .split("-").reverse().join("/");
+  }
+
   return (
     <>
       <tr className="transaction-register-container">
@@ -29,7 +34,7 @@ function TransactionRegister({transaction, handleClick}: TransactionRegisterProp
           }
         </td>
         <td>{transaction.category.name}</td>
-        <td>{new Date(transaction.date).toLocaleDateString()}</td>
+        <td>{normalizeDate(transaction.date)}</td>
         <td>{transaction.description}</td>
         <td>
           <button className="transaction-register-edit" onClick={handleEdit}>

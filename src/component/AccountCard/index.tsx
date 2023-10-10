@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from "react";
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheck } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import api from "../../api";
 
 interface AccountCardProps {
@@ -39,40 +39,49 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
       .catch(console.log);
   }
 
+  function handleCancel() {
+    setEditCard((prev) => !prev);
+  }
+
   return(
     <li className="account-card-container">
       <span className="account-card-header">
-        {!editCard
-          ? <span className="account-card-header-title">
-              {accountName}
-            </span>
-          : <input 
+          <span className="account-card-header-title">
+            {accountName}
+          </span>
+          { !editCard
+              ? <button className="account-card-header-button edit" onClick={handleClickEdit}>
+                  <AiOutlineEdit size={18} color="#333333"/>
+                </button>
+              : <button className="account-card-header-button delete" onClick={handleClickDelete}>
+                  <AiOutlineDelete size={18} color="#333333"/>
+                </button> 
+          }
+      </span>
+      <span className="account-card-value">
+        {
+          value?.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </span>
+      {
+        editCard &&
+        <span className="account-card-header">
+          <input 
               type="text" 
               className="account-card-header-input"
               value={accountName}
               onChange={handleChangeInputName}
-            />
-        }
-        {
-          !editCard 
-            ? <button className="account-card-header-button edit" onClick={handleClickEdit}>
-                <AiOutlineEdit size={18} color="#333333"/>
-              </button>
-            : <>
-                <button className="account-card-header-button confirm" onClick={handleClickConfirm}>
-                  <AiOutlineCheck size={18} color="#333333"/>
-                </button>
-                <button className="account-card-header-button delete" onClick={handleClickDelete}>
-                  <AiOutlineDelete size={18} color="#333333"/>
-                </button>
-              </>
-        }
-
-      </span>
-      <span className="account-card-value">{value?.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        })}</span>
+          />
+          <button className="account-card-header-button confirm border-bottom-none border-top" onClick={handleClickConfirm}>
+            <AiOutlineCheck size={18} color="#333333"/>
+          </button>
+          <button className="account-card-header-button confirm border-bottom-none border-top" onClick={handleCancel}>
+            <AiOutlineClose size={18} color="#333333"/>
+          </button>
+        </span>
+      }
     </li>
   );
 }

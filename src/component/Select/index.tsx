@@ -17,30 +17,29 @@ function Select({
   disabled = false,
   handleChange,
 }: SelectProps) {
-  const optionsList = options.map((option) => (
-    <option key={option} value={option}>
-      {option}
-    </option>
-  ));
-
   return (
-    <>
+    <div>
       <label htmlFor={id} className="modal-fields-label">
         {label}
       </label>
       <select
         id={id}
         value={value}
+        defaultValue=""
         disabled={disabled}
         onChange={handleChange}
         className="modal-fields-input"
       >
-        <option value="" disabled selected={true}>
-          Selecione uma Opcão
+        <option value="" disabled>
+          Selecione uma Opção
         </option>
-        {optionsList}
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
       </select>
-    </>
+    </div>
   );
 }
 

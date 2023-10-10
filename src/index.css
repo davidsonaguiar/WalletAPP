@@ -150,6 +150,7 @@ html, body {
 
 .account-card-header {
   width: 100%;
+  min-height: 38px;
   
   border-bottom: 1px solid #C5C5C5;
   
@@ -524,4 +525,12 @@ html, body {
 
   display: flex;
   justify-content: flex-end;
+}
+
+.border-bottom-none {
+  border-bottom: none;
+}
+
+.border-top {
+  border-top: 1px solid #666666;
 }
