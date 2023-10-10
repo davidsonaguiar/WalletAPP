@@ -101,8 +101,8 @@ function App() {
     }
   }
   
-    function addAccount(event: FormEvent) {
-      event.preventDefault();
+    function addAccount(event?: FormEvent) {
+      event && event.preventDefault();
       setState((prev) => ({
         ...prev,
         addAccount: !prev.addAccount
@@ -116,16 +116,16 @@ function App() {
     }));
   }
 
-  function addTransaction() {
+  function addTransaction(event?: FormEvent) {
+    event && event.preventDefault();
     setState((prev) => ({
       ...prev,
       addTransaction: !prev.addTransaction
     }));
   }
 
-  function editTransaction(open: boolean, transaction?: Transaction) {
-    console.log(open)
-
+  function editTransaction(open: boolean, transaction?: Transaction, event?: FormEvent) {
+    event && event.preventDefault();
     setState((prev => ({
       ...prev,
       editTransaction: {

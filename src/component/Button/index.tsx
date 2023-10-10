@@ -1,15 +1,15 @@
-import { ElementType } from "react";
+import { ButtonHTMLAttributes, ElementType } from "react";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   text: string;
-  handleClick: () => void;
+  handleClick?: () => void;
   variant?: "default" | "confirm" | "delete";
   icon: ElementType;
 }
 
-function Button({ icon: Icon, text, variant = "default", handleClick }: ButtonProps) {
+function Button({ icon: Icon, text, variant = "default", handleClick, ...rest }: ButtonProps) {
   return(
-    <button className={`button ${variant}`} onClick={handleClick}>
+    <button {...rest} className={`button ${variant}`} onClick={handleClick}>
       <Icon />
       { text }
     </button>

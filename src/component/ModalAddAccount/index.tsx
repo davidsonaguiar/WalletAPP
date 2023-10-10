@@ -8,7 +8,7 @@ import api from "../../api";
 
 interface ModalAddAccountProps {
   visible?: boolean;
-  handleClick: (event: FormEvent) => void;
+  handleClick: (event: FormEvent | undefined ) => void;
 }
 
 function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps) {
@@ -26,8 +26,6 @@ function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps)
       setName("");
       handleClick(event);
     }
-
-    console.log(response)
   }
 
   return(
@@ -38,7 +36,7 @@ function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps)
         </SectionHeader.Container>
         <Input 
           required
-          minlength={3} 
+          minLength={3}
           maxLength={30}
           type="text"
           label="Name" 
@@ -49,7 +47,7 @@ function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps)
       </Modal.Fields>
       <Modal.Buttons>
         <Button text="Salvar" variant="confirm" type="submit" icon={AiOutlineSave} />
-        <Button text="Cancelar" type="button" icon={AiOutlineClose} handleClick={handleClick}/>
+        <Button text="Cancelar" type="button" icon={AiOutlineClose} handleClick={() => handleClick(undefined)}/>
       </Modal.Buttons>
     </Modal.Container>
   );

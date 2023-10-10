@@ -4,7 +4,7 @@ import Input from "../Input";
 import Button from "../Button";
 import api from "../../api";
 import Select from "../Select";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
 import { AiOutlineSave, AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
 import { Category, Account, Transaction } from "../../types";
 
@@ -12,7 +12,7 @@ interface ModalEditAccountProps {
   accounts: Account[];
   visible?: boolean;
   transaction: Transaction;
-  handleClick: (open: boolean) => void;
+  handleClick: (open: boolean, transaction?: Transaction, event?: FormEvent) => void;
 }
 
 function ModalEditTransaction({
@@ -63,7 +63,8 @@ function ModalEditTransaction({
     }
   }
 
-  async function editTransaction() {
+  async function editTransaction(event: FormEvent) {
+    event.preventDefault();
     const idAccount = accounts.filter(
       (account) => account.name === inputs.account
     )[0].id;
@@ -83,7 +84,7 @@ function ModalEditTransaction({
     const response = await api.put("/transactions/" + transaction.id, body);
 
     if (response.status === 200) {
-      handleClick(false);
+      handleClick(false, undefined,event);
     }
   }
 
@@ -101,7 +102,7 @@ function ModalEditTransaction({
     .map((category: Category) => category.name);
 
   return (
-    <Modal.Container visible={visible}>
+    <Modal.Container visible={visible} method="post" handleSubmit={editTransaction}>
       <Modal.Fields>
         <SectionHeader.Container>
           <SectionHeader.Title text={"Editar Transaction"} />
@@ -113,6 +114,7 @@ function ModalEditTransaction({
           />
         </SectionHeader.Container>
         <Select
+          required
           id="type"
           handleChange={handleChange}
           label="Tipo"
@@ -120,6 +122,7 @@ function ModalEditTransaction({
           options={["Ganhos", "Gastos"]}
         />
         <Select
+          required
           id="account"
           handleChange={handleChange}
           label="Conta"
@@ -127,6 +130,7 @@ function ModalEditTransaction({
           options={accountList}
         />
         <Input
+          required
           type="number"
           label="Valor"
           id="value"
@@ -134,6 +138,7 @@ function ModalEditTransaction({
           handleChange={handleChange}
         />
         <Input
+          required
           label="Data da Transferência"
           id="date"
           type="date"
@@ -141,6 +146,7 @@ function ModalEditTransaction({
           handleChange={handleChange}
         />
         <Select
+          required
           id="category"
           handleChange={handleChange}
           label="Categoria"
@@ -160,7 +166,7 @@ function ModalEditTransaction({
           text="Salvar"
           variant="confirm"
           icon={AiOutlineSave}
-          handleClick={editTransaction}
+          type="submit"
         />
         <Button
           text="Cancelar"

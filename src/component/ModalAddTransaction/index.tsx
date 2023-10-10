@@ -2,7 +2,7 @@ import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
 import Input from "../Input";
 import Button from "../Button";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
 import { AiOutlineSave, AiOutlineClose } from "react-icons/ai";
 import api from "../../api";
 import Select from "../Select";
@@ -16,7 +16,7 @@ type Account = {
 interface ModalAddAccountProps {
   accounts: Account[];
   visible?: boolean;
-  handleClick: () => void;
+  handleClick: (event?: FormEvent) => void;
 }
 
 type Category = {
@@ -26,7 +26,7 @@ type Category = {
 };
 
 const initialState = {
-  value: 0,
+  value: "",
   type: "",
   category: "",
   date: "",
@@ -65,7 +65,8 @@ function ModalAddTransaction({
     }));
   }
 
-  async function addTransaction() {
+  async function addTransaction(event: FormEvent) {
+    event.preventDefault();
     const idAccount = accounts.filter(
       (account) => account.name === inputs.account
     )[0].id;
@@ -90,7 +91,7 @@ function ModalAddTransaction({
       const data = await response.data;
       console.log(data);
       setInputs(initialState);
-      handleClick();
+      handleClick(event);
     }
   }
 
@@ -101,12 +102,13 @@ function ModalAddTransaction({
     .map((category: Category) => category.name);
 
   return (
-    <Modal.Container visible={visible}>
+    <Modal.Container visible={visible} method="post" handleSubmit={addTransaction}>
       <Modal.Fields>
         <SectionHeader.Container>
           <SectionHeader.Title text="Adicionar Transação" />
         </SectionHeader.Container>
         <Select
+          required
           id="type"
           handleChange={handleChange}
           label="Tipo"
@@ -114,6 +116,7 @@ function ModalAddTransaction({
           options={["Ganhos", "Gastos"]}
         />
         <Select
+          required
           id="account"
           handleChange={handleChange}
           label="Conta"
@@ -121,13 +124,16 @@ function ModalAddTransaction({
           options={accountList}
         />
         <Input
+          required
           type="number"
           label="Valor"
           id="value"
+          min={1}
           value={inputs.value.toString()}
           handleChange={handleChange}
         />
         <Input
+          required
           label="Data da Transferência"
           id="date"
           type="date"
@@ -135,6 +141,7 @@ function ModalAddTransaction({
           handleChange={handleChange}
         />
         <Select
+          required
           id="category"
           handleChange={handleChange}
           label="Categoria"
@@ -152,9 +159,9 @@ function ModalAddTransaction({
       <Modal.Buttons>
         <Button
           text="Salvar"
+          type="submit"
           variant="confirm"
           icon={AiOutlineSave}
-          handleClick={addTransaction}
         />
         <Button
           text="Cancelar"
