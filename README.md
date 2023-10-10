@@ -2,9 +2,13 @@
 
 Este é um projeto de um gerenciador de finanças pessoais, um sistema web que será desenvolvido em duas partes: o front-end utilizando React e o back-end com Spring Boot (API). Este projeto faz parte de um trabalho acadêmico da disciplina de Programação Web (PWEB).
 
+![Aplicação Wallet Web](./src/assets/print.png)
+
 ## Objetivo do Projeto
 
 O objetivo deste projeto é criar uma aplicação que permita aos usuários gerenciar suas finanças pessoais de forma eficiente. Isso inclui registrar transações financeiras, categorizá-las, definir orçamentos mensais por categoria, visualizar relatórios, receber notificações importantes, importar/exportar dados em formato CSV, manter um histórico de transações e fornecer painéis personalizados para uma visão geral das finanças.
+
+[Documento de visão do projeto](https://docs.google.com/document/d/1WgdnbsmGcoihHDXPUqOcanm4g7FLr3ddS8JOH039O3s/edit#heading=h.hm7gutpjx2w9)
 
 ## Requisitos Funcionais
 
@@ -36,10 +40,11 @@ O objetivo deste projeto é criar uma aplicação que permita aos usuários gere
 
 ## Tecnologias Utilizadas
 
-- **Front-end:** React Vite Typescript - React Router - CSS module
-- **Back-end:** Typescript - Node - Prisma - Express - JWT - Token
-- **Banco de Dados:** PostgreSQL
-- **Hospedagem:** render.com
+- **Front-end:** [React Vite](https://vitejs.dev/) / [Typescript](https://www.typescriptlang.org/) / [React Router](https://reactrouter.com/) / CSS module
+- **Back-end:** [Typescript](https://www.typescriptlang.org/) / [Node](https://nodejs.org/) / [Prisma](https://www.prisma.io/) / [Express](https://expressjs.com/) / [JWT](https://jwt.io/) 
+- **Banco de Dados:** [PostgresSQL](https://www.postgresql.org/)
+- **Hospedagem:** [Render](render.com)
+- **Protótipo:** [Figma](https://www.figma.com/file/VlNiDluNn9HZemv5C7bvnz/Untitled?type=design&node-id=0%3A1&mode=design&t=UexyEkg50FN2SS4H-1)
 
 ## Como Contribuir
 
