@@ -21,6 +21,7 @@ function ModalEditTransaction({
   transaction,
   handleClick,
 }: ModalEditAccountProps) {
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [inputs, setInputs] = useState({
     id: transaction.id,
@@ -53,6 +54,13 @@ function ModalEditTransaction({
       ...prev,
       [event.target.id]: event.target.value,
     }));
+
+    if(event.target.id === "type") {
+      setInputs((prev) => ({
+        ...prev,
+        category: ""
+      }))
+    }
   }
 
   async function editTransaction() {
@@ -63,7 +71,7 @@ function ModalEditTransaction({
     const idCategory = categories.filter(
       (category) => category.name === inputs.category
     )[0].id;
-
+    
     const body = {
       value: Number(inputs.value),
       id_category: idCategory,
@@ -72,11 +80,7 @@ function ModalEditTransaction({
       description: inputs.description,
     };
 
-    console.log(body);
-
     const response = await api.put("/transactions/" + transaction.id, body);
-
-    console.log(response.status);
 
     if (response.status === 200) {
       handleClick(false);
@@ -140,7 +144,7 @@ function ModalEditTransaction({
           id="category"
           handleChange={handleChange}
           label="Categoria"
-          value={inputs.type}
+          value={inputs.category}
           disabled={inputs.type === ""}
           options={categoryList}
         />
