@@ -1,17 +1,19 @@
-import { ReactNode } from "react";
+import { ReactNode, FormEvent } from 'react';
 
 interface ContainerProps {
   visible: boolean;
+  method: "post" | "put" | "delete" | "get";
+  handleSubmit: (event: FormEvent) => void;
   children: ReactNode[];
 }
 
-function Container({ visible, children }: ContainerProps) {
+function Container({ visible, children, method, handleSubmit }: ContainerProps) {
   return(
     <div className={`modal-background ${!visible ? "hidden": ""}`}>
-      <div className="modal-container">
+      <form className="modal-container" onSubmit={handleSubmit} method={method}>
         { children }
         <div className="login-border-bottom"></div>
-      </div>
+      </form>
     </div>
   );
 }

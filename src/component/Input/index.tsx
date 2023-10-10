@@ -1,6 +1,6 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, InputHTMLAttributes } from "react";
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   id: string;
   value: string;
@@ -8,7 +8,7 @@ interface InputProps {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Input({ id, type = "text", value, label, handleChange }: InputProps) {
+function Input({ id, type = "text", value, label, handleChange, ...rest }: InputProps) {
 
   return(
     <>
@@ -16,6 +16,7 @@ function Input({ id, type = "text", value, label, handleChange }: InputProps) {
         { label }
       </label>
       <input 
+        {...rest}
         type={type}
         id={id} 
         className="modal-fields-input" 

@@ -10,7 +10,7 @@ import Footer from "../../component/Footer/index.tsx";
 import api from "../../api/index.ts";
 import ModalAddAccount from "../../component/ModalAddAccount/index.tsx";
 import ModalAddTransaction from "../../component/ModalAddTransaction";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from 'react';
 import { AiOutlinePlus } from "react-icons/ai";
 import { Account, Transaction } from "../../types/index.ts";
 import { useNavigate } from "react-router-dom";
@@ -101,7 +101,8 @@ function App() {
     }
   }
   
-    function addAccount() {
+    function addAccount(event: FormEvent) {
+      event.preventDefault();
       setState((prev) => ({
         ...prev,
         addAccount: !prev.addAccount

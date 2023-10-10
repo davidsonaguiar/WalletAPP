@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import api from "../../api";
 
@@ -21,7 +21,8 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
     edit(true);
   } 
 
-  function handleClickConfirm() {
+  function handleClickConfirm(event: FormEvent) {
+    event.preventDefault();
     api.put("/accounts/" + id, { name: accountName })
       .then(() => {
         edit(false);
@@ -31,7 +32,8 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
       .catch(console.log);
   }
 
-  function handleClickDelete() {
+  function handleClickDelete(event: FormEvent) {
+    event.preventDefault();
     api.delete("/accounts/" + id)
       .then(() => {
         edit(false);
@@ -67,20 +69,23 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
       </span>
       {
         editCard &&
-        <span className="account-card-header">
-          <input 
+        <form className="account-card-header" method="post" onSubmit={handleClickConfirm}>
+            <input 
+              required
+              minLength={3}
+              maxLength={30}
               type="text" 
               className="account-card-header-input"
               value={accountName}
               onChange={handleChangeInputName}
-          />
-          <button className="account-card-header-button confirm border-bottom-none border-top" onClick={handleClickConfirm}>
+            />
+          <button type="submit" className="account-card-header-button confirm border-bottom-none border-top">
             <AiOutlineCheck size={18} color="#333333"/>
           </button>
           <button className="account-card-header-button confirm border-bottom-none border-top" onClick={handleCancel}>
             <AiOutlineClose size={18} color="#333333"/>
           </button>
-        </span>
+        </form>
       }
     </li>
   );
