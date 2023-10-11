@@ -5,15 +5,15 @@ import api from "../../api";
 
 interface ItemCategoryListProps {
   category: Category;
+  deleted: () => void;
   isEdit: (edit: boolean) => void;
 }
 
-function ItemCategoryList({ category , isEdit}: ItemCategoryListProps) {
+function ItemCategoryList({ category , isEdit, deleted}: ItemCategoryListProps) {
 
   const [ name, setName ] = useState<string>(category.name);
   const [type, setType ] = useState<string>(category.type);
   const [edit, setEdit ] = useState<boolean>(false);
-
   
   
   function changeEdit(event: FormEvent) {
@@ -27,7 +27,7 @@ function ItemCategoryList({ category , isEdit}: ItemCategoryListProps) {
     const response = await api.delete("/categories/" + category.id);
     if(response.status === 200) {
       console.log("Categoria deletada com sucesso!");
-      changeEdit(event);
+      deleted();
     }
   }
   

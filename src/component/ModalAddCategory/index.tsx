@@ -16,6 +16,7 @@ interface ModalAddCategoryProps {
 
 function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
 
+  const [ deleted, setDeleted ] = useState(false);
   const [ isEdit, setIsEdit ] = useState<boolean>(false);
   const [ name, setName ] = useState<string>("");
   const [ type, setType ] = useState<string>("");
@@ -46,13 +47,17 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
     setIsEdit(edit);
   }
 
+  function changeDelete() {
+    setDeleted((prev) => !prev)
+  }
+
   useEffect(() => {
     getCategories();
-  }, [isEdit, visible])
+  }, [isEdit, visible, deleted])
 
   const categoriesList = categories.filter((category: Category) => category.user_id)
   .map((category: Category) => (
-    <ItemCategoryList category={category} isEdit={updateEdit} key={category.id} />
+    <ItemCategoryList category={category} deleted={changeDelete} isEdit={updateEdit} key={category.id} />
   ));
 
   return(

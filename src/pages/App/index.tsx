@@ -154,7 +154,7 @@ function App() {
   useEffect(() => {
     authUser();
     getTransactions();
-  }, [state.editAccount, state.addAccount, state.editTransaction, state.addTransaction, state.addCategory]);
+  }, [state.editAccount, state.addAccount, state.editTransaction, state.addTransaction, state.addCategory, state.import]);
 
   return(
     <>
