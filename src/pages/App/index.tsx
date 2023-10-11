@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import ModalEditTransaction from "../../component/ModalEditTransaction/index.tsx";
 import ModadAddCategory from "../../component/ModalAddCategory/index.tsx";
 import { BiCategory } from "react-icons/bi";
+import ModalImportTransaction from "../../component/ModalImportTransaction/index.tsx";
 
 type AccountList = {
   id: string,
@@ -25,21 +26,23 @@ type AccountList = {
 }
 
 type StateType = {
-  accounts: AccountList[],
-  transactions: Transaction[],
-  addAccount: boolean,
-  addCategory: boolean,
-  editAccount: boolean,
-  addTransaction: boolean,
+  accounts: AccountList[];
+  transactions: Transaction[];
+  import: boolean;
+  addAccount: boolean;
+  addCategory: boolean;
+  editAccount: boolean;
+  addTransaction: boolean;
   editTransaction: {
-    open: boolean,
-    transaction?: Transaction,
+    open: boolean;
+    transaction?: Transaction;
   }
 }
 
 const initialState = {
   accounts: [],
   transactions: [],
+  import: false,
   addAccount: false,
   addCategory: false,
   editAccount: false,
@@ -69,29 +72,22 @@ function App() {
   }
 
   async function getTransactions() {
+
     const responseTransaction = await api.get("/transactions");
     const responseAccount = await api.get("/accounts");
 
     if(responseTransaction.status === 200 && responseAccount.status === 200) {
-      
       const dataAccount = await responseAccount.data;
       const dataTransaction: Transaction[] = await responseTransaction.data;
-
       const accounts: AccountList[] = dataAccount.map((account: Account) => {
         const accountValue = dataTransaction.reduce((acc: number, transaction: Transaction) => {
           if(transaction.account.name === account.name) {
             return transaction.category.type === "Ganhos"
-              ? acc + transaction.value
-              : acc - transaction.value
-          } else {
-            return acc
-          }
-        }, 0);
-
-        return {
-          ...account,
-          value: accountValue
-        }
+              ? acc + transaction.value : acc - transaction.value
+          } else { 
+            return acc 
+          } }, 0);
+        return { ...account, value: accountValue }
       })
 
       setState((prev) => ({
@@ -147,10 +143,18 @@ function App() {
     })))
   }
 
+  function importTransaction(event?: FormEvent) {
+    event && event.preventDefault();
+    setState((prev) => ({
+      ...prev,
+      import: !prev.import
+    }));
+  }
+
   useEffect(() => {
     authUser();
     getTransactions();
-  }, [state.editAccount, state.addAccount, state.editTransaction, state.addTransaction]);
+  }, [state.editAccount, state.addAccount, state.editTransaction, state.addTransaction, state.addCategory]);
 
   return(
     <>
@@ -177,7 +181,7 @@ function App() {
       <SectionHeader.Container>
         <SectionHeader.Title text="Minhas Transações"/>
         <div className="section-header-buttons">
-          <Button text="Importar" icon={AiOutlineImport} handleClick={addTransaction}/>
+          <Button text="Importar" icon={AiOutlineImport} handleClick={importTransaction}/>
           <Button text="Categorias" icon={BiCategory} handleClick={addCategory}/>
           <Button text="Transação" icon={AiOutlinePlus} handleClick={addTransaction}/>
         </div>
@@ -196,7 +200,8 @@ function App() {
       <Footer />
       <ModadAddCategory visible={state.addCategory} handleClick={addCategory}/>
       <ModalAddAccount visible={state.addAccount} handleClick={addAccount}/>
-      <ModalAddTransaction accounts={state.accounts} visible={state.addTransaction} handleClick={addTransaction}/>
+      <ModalAddTransaction visible={state.addTransaction} accounts={state.accounts} handleClick={addTransaction}/>
+      <ModalImportTransaction visible={state.import} accounts={state.accounts} changeModal={importTransaction}/>
       {
         state.editTransaction.transaction &&
           <ModalEditTransaction

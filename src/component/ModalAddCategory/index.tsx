@@ -5,7 +5,7 @@ import Button from "../Button";
 import api from "../../api";
 import { Category } from "../../types";
 import { FormEvent, useState, useEffect } from "react";
-import { AiOutlineSave, AiOutlineClose } from "react-icons/ai"
+import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 import ItemCategoryList from "./ItemCategoryList";
 import Select from "../Select";
 
@@ -60,6 +60,7 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
       <Modal.Fields>
         <SectionHeader.Container>
           <SectionHeader.Title text="Adicionar Categoria"/>
+          <Button text="Fechar" type="button" icon={AiOutlineClose} handleClick={handleClick}/>
         </SectionHeader.Container>
         <Input 
           required
@@ -81,8 +82,7 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
         />
       </Modal.Fields>
       <Modal.Buttons>
-        <Button text="Salvar" variant="confirm" type="submit" icon={AiOutlineSave} />
-        <Button text="Cancelar" type="button" icon={AiOutlineClose} handleClick={handleClick}/>
+        <Button text="Adicionar na lista" variant="confirm" type="submit" icon={AiOutlinePlus} />
       </Modal.Buttons>
       <ul className="categoryList">
         { categoriesList }
