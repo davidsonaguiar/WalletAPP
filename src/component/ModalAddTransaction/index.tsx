@@ -54,7 +54,7 @@ function ModalAddTransaction({
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [visible]);
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
