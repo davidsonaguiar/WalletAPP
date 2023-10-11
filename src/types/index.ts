@@ -1,8 +1,3 @@
-export type Category = {
-  id: string;
-  name: string;
-  type: string;
-};
 
 export type Account = {
   id: string;
@@ -18,3 +13,10 @@ export type Transaction = {
   account: Account;
   category: Category;
 };
+
+export type Category = {
+  id: number;
+  name: string;
+  type: "Ganhos" | "Gastos"
+  user_id?: string;
+}

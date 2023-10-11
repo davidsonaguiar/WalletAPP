@@ -11,10 +11,12 @@ import api from "../../api/index.ts";
 import ModalAddAccount from "../../component/ModalAddAccount/index.tsx";
 import ModalAddTransaction from "../../component/ModalAddTransaction";
 import { useEffect, useState, FormEvent } from 'react';
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineImport, AiOutlinePlus } from "react-icons/ai";
 import { Account, Transaction } from "../../types/index.ts";
 import { useNavigate } from "react-router-dom";
 import ModalEditTransaction from "../../component/ModalEditTransaction/index.tsx";
+import ModadAddCategory from "../../component/ModalAddCategory/index.tsx";
+import { BiCategory } from "react-icons/bi";
 
 type AccountList = {
   id: string,
@@ -26,6 +28,7 @@ type StateType = {
   accounts: AccountList[],
   transactions: Transaction[],
   addAccount: boolean,
+  addCategory: boolean,
   editAccount: boolean,
   addTransaction: boolean,
   editTransaction: {
@@ -38,6 +41,7 @@ const initialState = {
   accounts: [],
   transactions: [],
   addAccount: false,
+  addCategory: false,
   editAccount: false,
   addTransaction: false,
   editTransaction: {
@@ -135,6 +139,14 @@ function App() {
     })))
   }
 
+  function addCategory(event?: FormEvent) {
+    event && event.preventDefault();
+    setState((prev => ({
+      ...prev,
+      addCategory: !prev.addCategory
+    })))
+  }
+
   useEffect(() => {
     authUser();
     getTransactions();
@@ -164,7 +176,11 @@ function App() {
       </AccountList>
       <SectionHeader.Container>
         <SectionHeader.Title text="Minhas Transações"/>
-        <Button text="Transação" icon={AiOutlinePlus} handleClick={addTransaction}/>
+        <div className="section-header-buttons">
+          <Button text="Importar" icon={AiOutlineImport} handleClick={addTransaction}/>
+          <Button text="Categorias" icon={BiCategory} handleClick={addCategory}/>
+          <Button text="Transação" icon={AiOutlinePlus} handleClick={addTransaction}/>
+        </div>
       </SectionHeader.Container>
       <TransactionTable>
         {
@@ -178,6 +194,7 @@ function App() {
         }
       </TransactionTable>
       <Footer />
+      <ModadAddCategory visible={state.addCategory} handleClick={addCategory}/>
       <ModalAddAccount visible={state.addAccount} handleClick={addAccount}/>
       <ModalAddTransaction accounts={state.accounts} visible={state.addTransaction} handleClick={addTransaction}/>
       {

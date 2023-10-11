@@ -8,7 +8,7 @@ import api from "../../api";
 
 interface ModalAddAccountProps {
   visible?: boolean;
-  handleClick: (event: FormEvent | undefined ) => void;
+  handleClick: (event?: FormEvent) => void;
 }
 
 function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps) {
@@ -47,7 +47,7 @@ function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps)
       </Modal.Fields>
       <Modal.Buttons>
         <Button text="Salvar" variant="confirm" type="submit" icon={AiOutlineSave} />
-        <Button text="Cancelar" type="button" icon={AiOutlineClose} handleClick={() => handleClick(undefined)}/>
+        <Button text="Cancelar" type="button" icon={AiOutlineClose} handleClick={handleClick}/>
       </Modal.Buttons>
     </Modal.Container>
   );

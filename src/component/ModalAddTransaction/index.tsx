@@ -39,7 +39,7 @@ function ModalAddTransaction({
   visible = false,
   handleClick,
 }: ModalAddAccountProps) {
-  const [categories, setCategories] = useState<Category[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
   const [inputs, setInputs] = useState(initialState);
 
   async function getCategories() {
