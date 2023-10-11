@@ -151,7 +151,6 @@ function ModalEditTransaction({
           handleChange={handleChange}
           label="Categoria"
           value={inputs.category}
-          disabled={inputs.type ? true: false}
           options={categoryList}
         />
         <Input
