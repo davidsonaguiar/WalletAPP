@@ -3,12 +3,12 @@ import { Category } from "../../types";
 import { useState, FormEvent, ChangeEvent } from "react";
 import api from "../../api";
 
-interface ItemProps {
+interface ItemCategoryListProps {
   category: Category;
   isEdit: (edit: boolean) => void;
 }
 
-function Item({ category , isEdit}: ItemProps) {
+function ItemCategoryList({ category , isEdit}: ItemCategoryListProps) {
 
   const [ name, setName ] = useState<string>(category.name);
   const [type, setType ] = useState<string>(category.type);
@@ -86,4 +86,4 @@ function Item({ category , isEdit}: ItemProps) {
   );
 }
 
-export default Item;
+export default ItemCategoryList;

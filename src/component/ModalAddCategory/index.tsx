@@ -6,7 +6,7 @@ import api from "../../api";
 import { Category } from "../../types";
 import { FormEvent, useState, useEffect } from "react";
 import { AiOutlineSave, AiOutlineClose } from "react-icons/ai"
-import Item from "./item";
+import ItemCategoryList from "./ItemCategoryList";
 import Select from "../Select";
 
 interface ModalAddCategoryProps {
@@ -52,7 +52,7 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
 
   const categoriesList = categories.filter((category: Category) => category.user_id)
   .map((category: Category) => (
-    <Item category={category} isEdit={updateEdit} key={category.id} />
+    <ItemCategoryList category={category} isEdit={updateEdit} key={category.id} />
   ));
 
   return(
