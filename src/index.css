@@ -21,6 +21,13 @@ html, body {
   flex-direction: column;
 }
 
+.main {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .hidden {
   display: none !important;
 }
@@ -58,6 +65,7 @@ html, body {
 
 .header-container {
   width: 100%;
+  height: 64px;
   padding-left: 36px;
 
   background-color: #333333;
@@ -161,6 +169,7 @@ html, body {
 
 .account-card-container {
   width: 250px;
+  min-width: 250px;
   height: 160px;
 
   background-color: #FFFFFF;
@@ -642,4 +651,50 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+.label-month {
+  height: 50px;
+  width: 150px;
+  margin-left: auto;
+
+  color: #FFFFFF;
+  font-size: 14px;
+  text-transform: uppercase;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+}
+
+.select-month {
+  height: 50px;
+  width: 150px;
+  padding: 0 24px;
+
+  background-color: #333333;
+  border: none;
+  border-left: 1px solid #666666;
+
+  color: #FFFFFF;
+  font-size: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+  transition: 0.3s ease-in;
+}
+
+.select-month:hover {
+  background-color: #3F3F3F;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
 }

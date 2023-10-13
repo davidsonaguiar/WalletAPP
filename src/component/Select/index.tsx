@@ -2,7 +2,7 @@ import { ChangeEvent, SelectHTMLAttributes } from "react";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   id: string;
-  label: string;
+  label?: string;
   value: string;
   options: string[];
   disabled?: boolean;
@@ -19,9 +19,12 @@ function Select({
 }: SelectProps) {
   return (
     <div>
-      <label htmlFor={id} className="modal-fields-label">
-        {label}
-      </label>
+      {
+        label &&
+        <label htmlFor={id} className="modal-fields-label">
+          {label}
+        </label>
+      }
       <select
         id={id}
         value={value}

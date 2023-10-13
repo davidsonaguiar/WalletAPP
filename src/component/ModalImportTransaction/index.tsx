@@ -75,7 +75,7 @@ function ModalImportTransaction({ visible, accounts, changeModal }: ModalImportT
         complete: (data: ParseResult<csvTransaction>) => parseCsv(data.data)
       });
     }
-  };
+  }
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();

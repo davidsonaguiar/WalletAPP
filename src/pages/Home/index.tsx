@@ -5,7 +5,6 @@ import AccountCard from "../../component/AccountCard/index.tsx";
 import NoAccount from "../../component/NoAccount/index.tsx";
 import TransactionTable from "../../component/TransactionTable/index.tsx";
 import TransactionRegister from "../../component/TransactionRegister.tsx/index.tsx";
-import Footer from "../../component/Footer/index.tsx";
 import api from "../../api/index.ts";
 import ModalAddAccount from "../../component/ModalAddAccount/index.tsx";
 import ModalAddTransaction from "../../component/ModalAddTransaction/index.tsx";
@@ -198,7 +197,6 @@ function Home() {
           ))
         }
       </TransactionTable>
-      <Footer />
       <ModadAddCategory visible={state.addCategory} handleClick={addCategory}/>
       <ModalAddAccount visible={state.addAccount} handleClick={addAccount}/>
       <ModalAddTransaction visible={state.addTransaction} accounts={state.accounts} handleClick={addTransaction}/>
