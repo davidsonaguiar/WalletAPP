@@ -1,23 +1,22 @@
-import Header from "../../component/Header";
-import Button from "../../component/Button";
-import SectionHeader from "../../component/SectionHeader";
-import AccountList from "../../component/AccountList";
-import AccountCard from "../../component/AccountCard";
+import Button from "../../component/Button/index.tsx";
+import SectionHeader from "../../component/SectionHeader/index.tsx";
+import AccountList from "../../component/AccountList/index.tsx";
+import AccountCard from "../../component/AccountCard/index.tsx";
 import NoAccount from "../../component/NoAccount/index.tsx";
-import TransactionTable from "../../component/TransactionTable";
-import TransactionRegister from "../../component/TransactionRegister.tsx";
+import TransactionTable from "../../component/TransactionTable/index.tsx";
+import TransactionRegister from "../../component/TransactionRegister.tsx/index.tsx";
 import Footer from "../../component/Footer/index.tsx";
 import api from "../../api/index.ts";
 import ModalAddAccount from "../../component/ModalAddAccount/index.tsx";
-import ModalAddTransaction from "../../component/ModalAddTransaction";
+import ModalAddTransaction from "../../component/ModalAddTransaction/index.tsx";
+import ModalEditTransaction from "../../component/ModalEditTransaction/index.tsx";
+import ModadAddCategory from "../../component/ModalAddCategory/index.tsx";
+import ModalImportTransaction from "../../component/ModalImportTransaction/index.tsx";
 import { useEffect, useState, FormEvent } from 'react';
 import { AiOutlineImport, AiOutlinePlus } from "react-icons/ai";
 import { Account, Transaction } from "../../types/index.ts";
 import { useNavigate } from "react-router-dom";
-import ModalEditTransaction from "../../component/ModalEditTransaction/index.tsx";
-import ModadAddCategory from "../../component/ModalAddCategory/index.tsx";
 import { BiCategory } from "react-icons/bi";
-import ModalImportTransaction from "../../component/ModalImportTransaction/index.tsx";
 
 type AccountList = {
   id: string,
@@ -53,7 +52,7 @@ const initialState = {
   }
 }
 
-function App() {
+function Home() {
   
   const [ state, setState ] = useState<StateType>(initialState);
 
@@ -158,7 +157,6 @@ function App() {
 
   return(
     <>
-      <Header />
       <SectionHeader.Container>
         <SectionHeader.Title text="Minhas Contas" />
         <Button text="Conta" icon={AiOutlinePlus} handleClick={addAccount}/>
@@ -175,7 +173,10 @@ function App() {
                 value={account.value}
               />
             ))
-          : <NoAccount />
+          : <NoAccount 
+              title="Não há conta cadastrada" 
+              text="Cadastre uma nova conta para iniciar seu controle de finanças"
+            />
         }
       </AccountList>
       <SectionHeader.Container>
@@ -216,4 +217,4 @@ function App() {
 
 }
 
-export default App;
+export default Home;

@@ -1,8 +1,13 @@
-function NoAccount() {
+interface NoDataProps {
+  title: string
+  text: string
+}
+
+function NoAccount({ text, title }: NoDataProps ) {
   return(
     <div className="no-account-container">
-      <p className="no-account-message">Não há conta cadastrada</p>
-      <p className="no-account-tip">Cadastre uma nova conta para iniciar seu controle de finanças</p>
+      <p className="no-account-message">{title}</p>
+      <p className="no-account-tip">{text}</p>
     </div>
   );
 }

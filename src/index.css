@@ -77,6 +77,24 @@ html, body {
   display: block;
 }
 
+.header-nav {
+  height: 100%;
+  margin-left: auto;
+}
+
+.header-list-link,
+.header-list-link  li,
+.header-list-link  a {
+  height: 100%;
+  list-style: none;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.header-list-link {
+  display: flex;
+}
+
 .header-button {
   width: 150px;
 
@@ -611,4 +629,17 @@ html, body {
 
 .input-file {
   display: none;
+}
+
+.transaction-card-value {
+  width: 100%;
+  padding: 12px;
+
+  color: #333333;
+  font-size: 24px;
+  text-align: right;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
