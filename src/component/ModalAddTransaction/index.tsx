@@ -53,7 +53,9 @@ function ModalAddTransaction({
   }
 
   useEffect(() => {
-    getCategories();
+    if(visible) {
+      getCategories();
+    }
   }, [visible]);
 
   function handleChange(

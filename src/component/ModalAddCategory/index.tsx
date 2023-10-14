@@ -52,7 +52,9 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
   }
 
   useEffect(() => {
-    getCategories();
+    if(visible) {
+      getCategories();
+    }
   }, [isEdit, visible, deleted])
 
   const categoriesList = categories.filter((category: Category) => category.user_id)
