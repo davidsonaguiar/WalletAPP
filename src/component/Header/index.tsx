@@ -21,6 +21,9 @@ function Header() {
           <li>
             <Link to="/summary" className="header-button">Resumo</Link>
           </li>
+          <li>
+            <Link to="/metas" className="header-button">Metas</Link>
+          </li>
         </ul>
       </nav>
       <button className="header-button" onClick={exit}>

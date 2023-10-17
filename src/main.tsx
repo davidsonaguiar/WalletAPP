@@ -8,6 +8,7 @@ import Summary
  from "./pages/Summay";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import "./index.css";
+import Meta from "./pages/Meta";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/summary",
         element: <Summary />
+      },
+      {
+        path: "/metas",
+        element: <Meta />
       }
     ]
   }, 
