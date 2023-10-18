@@ -319,7 +319,6 @@ html, body {
   justify-content: center;
   align-items: center;
 
-  cursor: pointer;
   transition: .2S ease-in;
 }
 
@@ -352,6 +351,7 @@ html, body {
   background-color: #fc46223b;
 }
 
+
 .transaction-register-container > td {
   width: 100%;
 
@@ -369,6 +369,9 @@ html, body {
   color: #9999FF;
 }
 
+.transaction-register-container.alert:hover > td {
+  color: #FFFFFF;
+}
 /* Footer */
 
 .footer-container {
@@ -703,4 +706,12 @@ html, body {
 .summary {
   display: flex;
   flex-direction: column;
+}
+
+.alert {
+  background-color: #fc4622;
+}
+
+.warning {
+  background-color: #e1b208 !important;
 }

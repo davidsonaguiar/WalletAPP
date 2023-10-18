@@ -144,7 +144,7 @@ function Summary() {
           value={month}
           onChange={(event) => setMonth(event.target.value)}
           className="select-month"
-        >
+        > 
           <option value="all">TODOS</option>
           {options}
         </select>
