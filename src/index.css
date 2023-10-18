@@ -323,7 +323,8 @@ html, body {
   transition: .2S ease-in;
 }
 
-.transaction-register-edit {
+.transaction-register-edit,
+.transaction-register-delete {
   width: 40px;
   min-width: 40px;
   height: 40px;
@@ -344,6 +345,11 @@ html, body {
 .transaction-register-edit:hover {
   color: #9999FF;
   background-color: #aaaafd47;
+}
+
+.transaction-register-delete:hover {
+  color: #FFFFFF;
+  background-color: #fc46223b;
 }
 
 .transaction-register-container > td {

@@ -10,9 +10,7 @@ function Register() {
   const navigate = useNavigate();
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-  
+    event.preventDefault();  
     const responseRegister = await api.post("/auth/register",{ 
       name: auth.name, 
       login: auth.login, 
@@ -20,22 +18,11 @@ function Register() {
     });
 
     if(responseRegister.status === 201) {
-
-      const responseLogin = await api.post("/auth/login", { 
-        login: auth.login, 
-        password: auth.password 
-      });
-
-      if(responseLogin.status === 200) {
-        const dataLogin = await responseLogin.data;
-        sessionStorage.setItem("token", dataLogin);
-        navigate("/");
-      } else {
-        console.log("Error durante login");
-      }
-
+      const dataRegister = await responseRegister.data;
+      sessionStorage.setItem("token", dataRegister);
+      navigate("/");
     } else {
-      console.log("Error de register: " + responseRegister.status);
+      console.log("Error durante login");
     }
   }
 

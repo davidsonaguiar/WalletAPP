@@ -13,6 +13,7 @@ function MetaTable({ children }: MetaTableProps) {
           <th className="transaction-table-header-col">VALOR</th>
           <th className="transaction-table-header-col">DATA</th>
           <th className="transaction-table-header-col">EDITE</th>
+          <th className="transaction-table-header-col">DELETE</th>
         </tr>
       </thead>
       <tbody className="transaction-table-body">
