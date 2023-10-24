@@ -19,7 +19,7 @@ function Register() {
 
     if(responseRegister.status === 201) {
       const dataRegister = await responseRegister.data;
-      sessionStorage.setItem("token", dataRegister);
+      sessionStorage.setItem("token", dataRegister.token);
       navigate("/");
     } else {
       console.log("Error durante login");

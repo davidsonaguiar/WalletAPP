@@ -12,5 +12,12 @@ api.interceptors.request.use((config) => {
   return config;
 })
 
+api.interceptors.response.use(
+  config => config,
+  error => {
+    alert(error.response.data);
+    return error;
+  }
+)
 
 export default api;
