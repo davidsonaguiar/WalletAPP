@@ -726,9 +726,9 @@ html, body {
 }
 
 .alert {
-  background-color: #ff9580;
+  background-color: #ffbcaf;
 }
 
 .warning {
-  background-color: #ffdb5b !important;
+  background-color: #ffeeb0 !important;
 }
