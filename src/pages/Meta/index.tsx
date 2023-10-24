@@ -87,7 +87,7 @@ function Meta() {
     const color =
       categoryTotal > meta.value
         ? "alert"
-        : categoryTotal < meta.value - meta.value * 0.1
+        : categoryTotal < (meta.value - (meta.value * 0.1))
         ? "warning"
         : "";
 
