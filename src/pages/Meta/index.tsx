@@ -1,12 +1,12 @@
-import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
 import Button from "../../component/Button";
 import HeaderSection from "../../component/SectionHeader";
 import MetaTable from "../../component/MetaTable";
 import ModalAddMeta from "../../component/ModalAddMeta";
-import { useEffect, useState } from "react";
 import api from "../../api";
-import { MetaCategory, Transaction } from "../../types";
 import ModalEditMeta from "../../component/ModalEditMeta";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { MetaCategory, Transaction } from "../../types";
 
 function Meta() {
   const [metas, setMetas] = useState<MetaCategory[]>([]);
@@ -16,7 +16,6 @@ function Meta() {
   const [edit, setEdit] = useState<boolean>(false);
   const [remove, setRemove] = useState<boolean>(false);
 
-  const categoryTotals: { [categoryId: number]: number } = {};
 
   async function getTransactions() {
     const response = await api.get("/transactions");
@@ -58,36 +57,42 @@ function Meta() {
 
   useEffect(() => {
     getTransactions();
-  }, []);
+  }, [add, remove, edit]);
+
+
+
+  type CategoryMonthKey = `${string}-${string}-${string}`;
+
+  const categoryMonthTotals: Record<CategoryMonthKey, number> = {};
 
   transactions.forEach((transaction) => {
     const categoryId = transaction.category.id;
     const amount = transaction.value;
     const [year, month] = transaction.date.split("T")[0].split("-");
 
-    const metaCategory = metas.filter(
-      (meta) => meta.category.id === categoryId
-    )[0];
+    const key: CategoryMonthKey = `${categoryId}-${year}-${month}`;
 
-    if ( metaCategory && Number(year) === metaCategory.year && Number(month) === metaCategory.month ) {
-      if (categoryTotals[categoryId]) {
-        categoryTotals[categoryId] += amount;
-      } else {
-        categoryTotals[categoryId] = amount;
-      }
+    if (categoryMonthTotals[key]) {
+      categoryMonthTotals[key] += amount;
+    } else {
+      categoryMonthTotals[key] = amount;
     }
   });
 
+
   const registerMetas = metas.map((meta) => {
+    const key: CategoryMonthKey = `${meta.category.id}-${meta.year}-${meta.month}`;
+    const categoryTotal = categoryMonthTotals[key];
+    
     const color =
-      categoryTotals[meta.category.id] > meta.value
+      categoryTotal > meta.value
         ? "alert"
-        : meta.value - meta.value * 0.1 < categoryTotals[meta.category.id]
+        : categoryTotal < meta.value - meta.value * 0.1
         ? "warning"
         : "";
 
     return (
-      <tr className={"transaction-register-container " + color}>
+      <tr className={"transaction-register-container " + color} key={meta.id}>
         <td>{meta.category.name}</td>
         <td>
           {meta.value.toLocaleString("pt-BR", {
@@ -96,7 +101,7 @@ function Meta() {
           })}
         </td>
         <td>
-          {(categoryTotals[meta.category.id] || 0).toLocaleString("pt-BR", {
+          {(categoryTotal || 0).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}
@@ -115,7 +120,7 @@ function Meta() {
             className="transaction-register-delete"
             onClick={() => deleteMeta(meta.id)}
           >
-            <AiOutlineDelete size={20} />
+            <AiOutlineDelete size={20}/>
           </button>
         </td>
       </tr>

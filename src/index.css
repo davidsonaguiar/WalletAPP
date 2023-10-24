@@ -369,9 +369,26 @@ html, body {
   color: #9999FF;
 }
 
-.transaction-register-container.alert:hover > td {
-  color: #FFFFFF;
+.transaction-register-container.alert > td,
+.transaction-register-container.warning > td  {
+  color: #333333;
 }
+
+.alert .transaction-register-edit,
+.warning .transaction-register-edit,
+.alert .transaction-register-delete,
+.warning .transaction-register-delete {
+  color: #333333;
+}
+
+.alert .transaction-register-edit:hover,
+.warning .transaction-register-edit:hover,
+.alert .transaction-register-delete:hover,
+.warning .transaction-register-delete:hover {
+  background-color: #ffffff5c;
+}
+
+
 /* Footer */
 
 .footer-container {
@@ -709,9 +726,9 @@ html, body {
 }
 
 .alert {
-  background-color: #fc4622;
+  background-color: #ff9580;
 }
 
 .warning {
-  background-color: #e1b208 !important;
+  background-color: #ffdb5b !important;
 }
