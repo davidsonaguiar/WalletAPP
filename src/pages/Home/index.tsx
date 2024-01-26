@@ -16,6 +16,7 @@ import { AiOutlineImport, AiOutlinePlus } from "react-icons/ai";
 import { Account, Transaction } from "../../types/index.ts";
 import { useNavigate } from "react-router-dom";
 import { BiCategory } from "react-icons/bi";
+import { useAuthentication } from "../../hooks/useAuhentication.ts";
 
 type AccountList = {
   id: string;
@@ -54,23 +55,13 @@ const initialState = {
 function Home() {
   const [state, setState] = useState<StateType>(initialState);
 
+  const { isAuthenticaded } = useAuthentication();
+
   const navigate = useNavigate();
 
-  async function authUser() {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return false;
-    } else {
-      const auth = await api.get("/auth")
-      if(auth.status !== 200) {
-        navigate("/login");
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
+  useEffect(() => {
+    if (!isAuthenticaded) navigate("/login");
+  }, []);
 
   async function getTransactions() {
     const responseTransaction = await api.get("/transactions");

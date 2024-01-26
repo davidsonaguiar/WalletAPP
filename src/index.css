@@ -732,3 +732,8 @@ html, body {
 .warning {
   background-color: #ffeeb0 !important;
 }
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
