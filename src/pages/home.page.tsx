@@ -1,22 +1,22 @@
-import Button from "../../component/Button/index.tsx";
-import SectionHeader from "../../component/SectionHeader/index.tsx";
-import AccountList from "../../component/AccountList/index.tsx";
-import AccountCard from "../../component/AccountCard/index.tsx";
-import NoAccount from "../../component/NoAccount/index.tsx";
-import TransactionTable from "../../component/TransactionTable/index.tsx";
-import TransactionRegister from "../../component/TransactionRegister.tsx/index.tsx";
-import api from "../../api/index.ts";
-import ModalAddAccount from "../../component/ModalAddAccount/index.tsx";
-import ModalAddTransaction from "../../component/ModalAddTransaction/index.tsx";
-import ModalEditTransaction from "../../component/ModalEditTransaction/index.tsx";
-import ModadAddCategory from "../../component/ModalAddCategory/index.tsx";
-import ModalImportTransaction from "../../component/ModalImportTransaction/index.tsx";
+import Button from "../components/Button/index.tsx";
+import SectionHeader from "../components/SectionHeader/index.tsx";
+import AccountList from "../components/AccountList/index.tsx";
+import AccountCard from "../components/AccountCard/index.tsx";
+import NoAccount from "../components/NoAccount/index.tsx";
+import TransactionTable from "../components/TransactionTable/index.tsx";
+import TransactionRegister from "../components/TransactionRegister.tsx/index.tsx";
+import api from "../axios.instance.ts";
+import ModalAddAccount from "../components/ModalAddAccount/index.tsx";
+import ModalAddTransaction from "../components/ModalAddTransaction/index.tsx";
+import ModalEditTransaction from "../components/ModalEditTransaction/index.tsx";
+import ModadAddCategory from "../components/ModalAddCategory/index.tsx";
+import ModalImportTransaction from "../components/ModalImportTransaction/index.tsx";
 import { useEffect, useState, FormEvent } from "react";
 import { AiOutlineImport, AiOutlinePlus } from "react-icons/ai";
-import { Account, Transaction } from "../../types/index.ts";
+import { Account, Transaction } from "../types/index.ts";
 import { useNavigate } from "react-router-dom";
 import { BiCategory } from "react-icons/bi";
-import { useAuthentication } from "../../hooks/useAuhentication.ts";
+import { useAuthentication } from "../hooks/useAuhentication.ts";
 
 type AccountList = {
   id: string;
@@ -53,15 +53,8 @@ const initialState = {
 };
 
 function Home() {
+  
   const [state, setState] = useState<StateType>(initialState);
-
-  const { isAuthenticaded } = useAuthentication();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAuthenticaded) navigate("/login");
-  }, []);
 
   async function getTransactions() {
     const responseTransaction = await api.get("/transactions");

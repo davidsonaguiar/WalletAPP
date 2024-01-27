@@ -2,22 +2,23 @@ import Modal from "../Modal";
 import HeaderSection from "../SectionHeader";
 import Button from "../Button";
 import Input from "../Input";
-import api from "../../api";
+import api from "../../axios.instance";
 import Select from "../Select";
-import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineSave } from "react-icons/ai";
 import { useEffect, useState, FormEvent } from "react";
-import { Category } from "../../types";
+import { Category, MetaCategory } from "../../types";
 
 interface ModalAddMetaProps {
   visible: boolean;
+  meta: MetaCategory;
   handleAdd: () => void;
 }
 
-function ModalAddMeta({ visible, handleAdd }: ModalAddMetaProps) {
+function ModalEditMeta({ visible, meta, handleAdd }: ModalAddMetaProps) {
 
-  const [ value, setValue ] = useState("");
-  const [ date, setDate ] = useState("");
-  const [ category, setCategory ] = useState("");
+  const [ value, setValue ] = useState(meta.value.toString());
+  const [ date, setDate ] = useState(`${meta.year}-${meta.month}`);
+  const [ category, setCategory ] = useState(meta.category.name);
   const [ categories, setCategories ] = useState<Category[]>([]);
   const currentDate = new Date(); 
 
@@ -41,12 +42,9 @@ function ModalAddMeta({ visible, handleAdd }: ModalAddMetaProps) {
     event.preventDefault();
     const [ year, month ] = date.split("-");
     const category_id = categories.filter(el => el.name === category)[0].id;
-    const body = { year, month, value, category_id };
-
-    console.log(body);
-
-    const response = await api.post("/metas", body);
-    if(response.status === 201) {
+    const body = { id: meta.id, year, month, value, category_id };
+    const response = await api.put("/metas/" + meta.id, body);
+    if(response.status === 200) {
       handleAdd();
     }
   }
@@ -57,7 +55,7 @@ function ModalAddMeta({ visible, handleAdd }: ModalAddMetaProps) {
     <Modal.Container visible={visible} handleSubmit={handleSubmitForm} method="post">
       <Modal.Fields>
         <HeaderSection.Container>
-          <HeaderSection.Title text="Adicionar Meta"/>
+          <HeaderSection.Title text="Editar Meta"/>
           <Button text="Fechar" type="button" icon={AiOutlineClose} handleClick={handleAdd}/>
         </HeaderSection.Container>
         <Select 
@@ -86,7 +84,7 @@ function ModalAddMeta({ visible, handleAdd }: ModalAddMetaProps) {
         />
       </Modal.Fields>
       <Modal.Buttons>
-        <Button text="Adicionar Meta" variant="confirm" type="submit" icon={AiOutlinePlus} />
+        <Button text="Editar" variant="confirm" type="submit" icon={AiOutlineSave} />
       </Modal.Buttons>
 
     </Modal.Container>
@@ -94,4 +92,4 @@ function ModalAddMeta({ visible, handleAdd }: ModalAddMetaProps) {
 }
 
 
-export default ModalAddMeta;
+export default ModalEditMeta;

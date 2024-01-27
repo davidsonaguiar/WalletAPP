@@ -4,7 +4,7 @@ import Input from "../Input";
 import Button from "../Button";
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { AiOutlineSave, AiOutlineClose } from "react-icons/ai";
-import api from "../../api";
+import api from "../../axios.instance";
 
 interface ModalAddAccountProps {
   visible?: boolean;

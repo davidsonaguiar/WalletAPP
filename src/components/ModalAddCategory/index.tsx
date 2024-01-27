@@ -2,7 +2,7 @@ import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
 import Input from "../Input";
 import Button from "../Button";
-import api from "../../api";
+import api from "../../axios.instance";
 import { Category } from "../../types";
 import { FormEvent, useState, useEffect } from "react";
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';

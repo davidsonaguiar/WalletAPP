@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
-import api from "../../api";
+import api from "../../axios.instance";
 
 interface AccountCardProps {
   id: string;

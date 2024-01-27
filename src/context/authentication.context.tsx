@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { UserWhithoutPassword } from "../models/user.model";
-import api  from "../api";
+import api  from "../axios.instance";
 
 interface AuthenticationContextProps {
   isAuthenticaded: boolean;
@@ -34,20 +34,23 @@ export function AuthenticationProvider(props: { children: ReactNode }) {
   
   async function signIn(email: string, password: string) {
     setIsLoading(true);
-
-    const response = await api(
-      "/login",
-      {
-        method: "POST",
-        data: {
-          email,
-          password
+    try {
+      const response = await api(
+        "login",
+        {
+          method: "POST",
+          data: {
+            email,
+            password
+          },
+          withCredentials: true
         }
-      }
-    )
-
-    setUserStorage(response.data);
-    setUser(response.data);
+      );
+      setUserStorage(response.data);
+      setUser(response.data);
+    } catch(error) {
+      console.log(error);
+    }
     setIsLoading(false)
   }
   

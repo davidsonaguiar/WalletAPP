@@ -1,4 +1,4 @@
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthenticateRequest } from "../models/user.model";
 import { useForm } from "react-hook-form";
 import { useAuthentication } from "../hooks/useAuhentication";
@@ -15,7 +15,7 @@ function LoginPage() {
   }
 
   useEffect(() => {
-    if(isAuthenticaded) navigation("/");
+    if(isAuthenticaded) navigation("/dashboard");
   }, [isAuthenticaded]);
 
   console.log(isAuthenticaded)

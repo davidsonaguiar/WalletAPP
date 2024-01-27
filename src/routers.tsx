@@ -1,27 +1,32 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import App from "./App";
-import Home from "./pages/Home";
+import { DashboadLayout } from "./layouts/dashboard.layout";
+import Home from "./pages/home.page";
 import Summary from "./pages/Summay";
 import Meta from "./pages/Meta";
 import Register from "./pages/Register";
 import Login from "./pages/login.page";
+import { ProtectLayout } from "./layouts/authentication.layout";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path: "/dashboard",
+    element: (
+      <ProtectLayout>
+        <DashboadLayout />
+      </ProtectLayout>
+    ),
     children: [
       {
-        path: "/",
+        path: "/dashboard",
         element: <Home />,
       },
       {
-        path: "/summary",
+        path: "/dashboard/summary",
         element: <Summary />
       },
       {
-        path: "/metas",
+        path: "/dashboard/metas",
         element: <Meta />
       }
     ]
@@ -31,7 +36,7 @@ const router = createBrowserRouter([
     element: <Register />
   },
   {
-    path: "/login",
+    path: "/",
     element: <Login />
   }
 ])

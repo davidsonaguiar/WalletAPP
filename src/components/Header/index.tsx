@@ -1,14 +1,10 @@
 import { BiLogOut } from "react-icons/bi";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuthentication } from "../../hooks/useAuhentication";
 
 function Header() {
 
-  const navigate = useNavigate();
-
-  function exit() {
-    sessionStorage.removeItem("token");
-    navigate("/login");
-  }
+  const { signOut } = useAuthentication();
 
   return(
     <header className="header-container">
@@ -26,7 +22,7 @@ function Header() {
           </li>
         </ul>
       </nav>
-      <button className="header-button" onClick={exit}>
+      <button className="header-button" onClick={signOut}>
         <BiLogOut />
         SAIR
       </button>

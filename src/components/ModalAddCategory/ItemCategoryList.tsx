@@ -1,7 +1,7 @@
 import { AiOutlineCheck, AiOutlineClose, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { Category } from "../../types";
 import { useState, FormEvent, ChangeEvent } from "react";
-import api from "../../api";
+import api from "../../axios.instance";
 
 interface ItemCategoryListProps {
   category: Category;

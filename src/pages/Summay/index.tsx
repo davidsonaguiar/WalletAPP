@@ -1,7 +1,7 @@
-import SectionHeader from "../../component/SectionHeader";
-import NoAccount from "../../component/NoAccount";
-import api from "../../api";
-import Button from "../../component/Button";
+import SectionHeader from "../../components/SectionHeader";
+import NoAccount from "../../components/NoAccount";
+import api from "../../axios.instance";
+import Button from "../../components/Button";
 import Papa from "papaparse";
 import { BiExport } from "react-icons/bi";
 import { useState, useEffect } from "react";

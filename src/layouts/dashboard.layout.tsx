@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import Header from "./component/Header";
-import Footer from "./component/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-function App() {
+export function DashboadLayout() {
   return(
     <>
       <Header />
@@ -13,5 +13,3 @@ function App() {
     </>
   );
 }
-
-export default App;

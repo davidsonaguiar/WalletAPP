@@ -2,36 +2,45 @@ import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
 import Input from "../Input";
 import Button from "../Button";
-import api from "../../api";
-import Select from "../Select";
 import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
-import { AiOutlineSave, AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
-import { Category, Account, Transaction } from "../../types";
+import { AiOutlineSave, AiOutlineClose } from "react-icons/ai";
+import api from "../../axios.instance";
+import Select from "../Select";
 
-interface ModalEditAccountProps {
+type Account = {
+  id: string;
+  name: string;
+  user_id?: string;
+};
+
+interface ModalAddAccountProps {
   accounts: Account[];
   visible?: boolean;
-  transaction: Transaction;
-  handleClick: (open: boolean, transaction?: Transaction, event?: FormEvent) => void;
+  handleClick: (event?: FormEvent) => void;
 }
 
-function ModalEditTransaction({
+type Category = {
+  id: string;
+  name: string;
+  type: string;
+};
+
+const initialState = {
+  value: "",
+  type: "",
+  category: "",
+  date: "",
+  account: "",
+  description: "",
+};
+
+function ModalAddTransaction({
   accounts,
   visible = false,
-  transaction,
   handleClick,
-}: ModalEditAccountProps) {
-
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [inputs, setInputs] = useState({
-    id: transaction.id,
-    value: transaction.value,
-    date: transaction.date,
-    type: transaction.category.type,
-    description: transaction.description,
-    category: transaction.category.name,
-    account: transaction.account.name,
-  });
+}: ModalAddAccountProps) {
+    const [categories, setCategories] = useState<Category[]>([]);
+  const [inputs, setInputs] = useState(initialState);
 
   async function getCategories() {
     const response = await api.get("/categories");
@@ -44,8 +53,10 @@ function ModalEditTransaction({
   }
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    if(visible) {
+      getCategories();
+    }
+  }, [visible]);
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -54,16 +65,9 @@ function ModalEditTransaction({
       ...prev,
       [event.target.id]: event.target.value,
     }));
-
-    if(event.target.id === "type") {
-      setInputs((prev) => ({
-        ...prev,
-        category: ""
-      }))
-    }
   }
 
-  async function editTransaction(event: FormEvent) {
+  async function addTransaction(event: FormEvent) {
     event.preventDefault();
     const idAccount = accounts.filter(
       (account) => account.name === inputs.account
@@ -72,7 +76,7 @@ function ModalEditTransaction({
     const idCategory = categories.filter(
       (category) => category.name === inputs.category
     )[0].id;
-    
+
     const body = {
       value: Number(inputs.value),
       id_category: idCategory,
@@ -81,17 +85,15 @@ function ModalEditTransaction({
       description: inputs.description,
     };
 
-    const response = await api.put("/transactions/" + transaction.id, body);
+    console.log(body);
 
-    if (response.status === 200) {
-      handleClick(false, undefined,event);
-    }
-  }
+    const response = await api.post("/transactions", body);
 
-  async function deleteTransaction() {
-    const response = await api.delete("/transactions/" + transaction.id);
-    if (response.status === 200) {
-      handleClick(false);
+    if (response.status === 201) {
+      const data = await response.data;
+      console.log(data);
+      setInputs(initialState);
+      handleClick(event);
     }
   }
 
@@ -102,16 +104,10 @@ function ModalEditTransaction({
     .map((category: Category) => category.name);
 
   return (
-    <Modal.Container visible={visible} method="post" handleSubmit={editTransaction}>
+    <Modal.Container visible={visible} method="post" handleSubmit={addTransaction}>
       <Modal.Fields>
         <SectionHeader.Container>
-          <SectionHeader.Title text={"Editar Transaction"} />
-          <Button
-            icon={AiOutlineDelete}
-            text="Delete"
-            handleClick={deleteTransaction}
-            variant="delete"
-          />
+          <SectionHeader.Title text="Adicionar Transação" />
         </SectionHeader.Container>
         <Select
           required
@@ -134,6 +130,7 @@ function ModalEditTransaction({
           type="number"
           label="Valor"
           id="value"
+          min={1}
           value={inputs.value.toString()}
           handleChange={handleChange}
         />
@@ -151,6 +148,7 @@ function ModalEditTransaction({
           handleChange={handleChange}
           label="Categoria"
           value={inputs.category}
+          disabled={inputs.type === ""}
           options={categoryList}
         />
         <Input
@@ -163,18 +161,18 @@ function ModalEditTransaction({
       <Modal.Buttons>
         <Button
           text="Salvar"
+          type="submit"
           variant="confirm"
           icon={AiOutlineSave}
-          type="submit"
         />
         <Button
           text="Cancelar"
           icon={AiOutlineClose}
-          handleClick={() => handleClick(false)}
+          handleClick={handleClick}
         />
       </Modal.Buttons>
     </Modal.Container>
   );
 }
 
-export default ModalEditTransaction;
+export default ModalAddTransaction;
