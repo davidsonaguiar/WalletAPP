@@ -1,8 +1,8 @@
-import Button from "../../components/Button";
+import Button from "../../components/button";
 import HeaderSection from "../../components/SectionHeader";
 import MetaTable from "../../components/MetaTable";
 import ModalAddMeta from "../../components/ModalAddMeta";
-import api from "../../axios.instance";
+import api from "../../axios";
 import ModalEditMeta from "../../components/ModalEditMeta";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlinePlus } from "react-icons/ai";
 import { useEffect, useState } from "react";

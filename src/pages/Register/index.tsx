@@ -1,5 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-import api from "../../axios.instance";
+import api from "../../axios";
 import { useNavigate } from "react-router-dom";
 
 const initialState = { name: "", login: "", password: "" };

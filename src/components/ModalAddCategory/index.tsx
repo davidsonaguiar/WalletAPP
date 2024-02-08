@@ -1,8 +1,8 @@
 import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
-import Input from "../Input";
-import Button from "../Button";
-import api from "../../axios.instance";
+import {Input} from "../input";
+import Button from "../button";
+import api from "../../axios";
 import { Category } from "../../types";
 import { FormEvent, useState, useEffect } from "react";
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
@@ -77,7 +77,6 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
           label="Name" 
           id="name"
           value={name}
-          handleChange={(event) => setName(event.target.value)}
         />
         <Select 
           required

@@ -1,10 +1,10 @@
 import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
-import Input from "../Input";
-import Button from "../Button";
+import {Input} from "../input";
+import Button from "../button";
 import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
 import { AiOutlineSave, AiOutlineClose } from "react-icons/ai";
-import api from "../../axios.instance";
+import api from "../../axios";
 import Select from "../Select";
 
 type Account = {
@@ -132,7 +132,6 @@ function ModalAddTransaction({
           id="value"
           min={1}
           value={inputs.value.toString()}
-          handleChange={handleChange}
         />
         <Input
           required
@@ -140,7 +139,6 @@ function ModalAddTransaction({
           id="date"
           type="date"
           value={inputs.date}
-          handleChange={handleChange}
         />
         <Select
           required
@@ -155,7 +153,6 @@ function ModalAddTransaction({
           label="Descrição"
           id="description"
           value={inputs.description}
-          handleChange={handleChange}
         />
       </Modal.Fields>
       <Modal.Buttons>

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   margin: 0;
@@ -461,7 +463,12 @@ html, body {
   height: 50px;
   padding-left: 1rem;
   
-  border: none;
+  background-color: #3F3F3F;
+  border: 1px solid #666666;
+  border-right: none;
+  border-left: none;
+
+  color: #E5E5E5;
 }
 
 .login-form-button {
@@ -572,7 +579,10 @@ html, body {
   height: 40px;
   padding: 0 1rem;
 
+  background-color: #3F3F3F;
   border: none;
+
+  color: #F5F5F5;
 }
 
 .modal-buttons {

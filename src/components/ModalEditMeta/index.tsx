@@ -1,8 +1,8 @@
 import Modal from "../Modal";
 import HeaderSection from "../SectionHeader";
-import Button from "../Button";
-import Input from "../Input";
-import api from "../../axios.instance";
+import Button from "../button";
+import {Input} from "../input";
+import api from "../../axios";
 import Select from "../Select";
 import { AiOutlineClose, AiOutlineSave } from "react-icons/ai";
 import { useEffect, useState, FormEvent } from "react";
@@ -70,7 +70,6 @@ function ModalEditMeta({ visible, meta, handleAdd }: ModalAddMetaProps) {
           id="value" 
           type="number"
           value={value}
-          handleChange={(event) => setValue(event.target.value)}
           required
         />
         <Input 
@@ -79,7 +78,6 @@ function ModalEditMeta({ visible, meta, handleAdd }: ModalAddMetaProps) {
           id="date" 
           min={`${currentDate.getFullYear()}-${currentDate.getMonth() + 1}`}
           value={date} 
-          handleChange={(event) => setDate(event.target.value)} 
           required
         />
       </Modal.Fields>

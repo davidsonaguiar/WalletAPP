@@ -1,10 +1,10 @@
 import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
-import Input from "../Input";
-import Button from "../Button";
+import {Input} from "../input";
+import Button from "../button";
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { AiOutlineSave, AiOutlineClose } from "react-icons/ai";
-import api from "../../axios.instance";
+import api from "../../axios";
 
 interface ModalAddAccountProps {
   visible?: boolean;
@@ -42,7 +42,6 @@ function ModalAddAccount({ visible = false, handleClick }: ModalAddAccountProps)
           label="Name" 
           id="name"
           value={name}
-          handleChange={getAccountName}
         />
       </Modal.Fields>
       <Modal.Buttons>

@@ -1,49 +1,64 @@
-import { useNavigate } from "react-router-dom";
-import { AuthenticateRequest } from "../models/user.model";
-import { useForm } from "react-hook-form";
-import { useAuthentication } from "../hooks/useAuhentication";
-import { useEffect } from "react";
 import { Toaster } from "sonner";
-import { Input } from "../components/input";
-import { Label } from "../components/label";
-import { Form } from "../components/form";
 import Button from "../components/button";
 import { ErrorInput } from "../components/error.input";
+import { Form } from "../components/form";
+import { Input } from "../components/input";
+import { Label } from "../components/label";
+import { useForm } from "react-hook-form";
+import { RegisterRequest } from "../models/user.model";
+import { useAuthentication } from "../hooks/useAuhentication";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+export function RegisterPage() {
+
+  const navigation = useNavigate();
+  const { signUp } = useAuthentication();
+  const { isLoading, isAuthenticaded } = useAuthentication();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthenticateRequest>();
-  const { isAuthenticaded, isLoading, signIn } = useAuthentication();
-  const navigation = useNavigate();
+  } = useForm<RegisterRequest>();
 
   useEffect(() => {
     if (isAuthenticaded) navigation("/dashboard");
-  }, [isAuthenticaded]);
-
-  return (
+  }, [isAuthenticaded])
+  
+  return(
     <>
       <div className="w-full px-10 bg-zinc-900 border borde-zinc-500 sm:max-w-lg">
         <h1 className="w-full h-16 px-3 bg-zinc-900 border border-zinc-500 text-zinc-300 text-xl font-bold tracking-wider flex items-center">
-          LOGIN
+          REGISTRE-SE
         </h1>
-        <Form action="" onSubmit={handleSubmit(signIn)}>
+        <Form action="" onSubmit={handleSubmit(signUp)}>
           <Label htmlFor="login" className="login-form-label">
-            EMAIL
+            NOME
           </Label>
           <Input
             type="text"
-            label="email"
+            label="name"
             register={register}
-            id="login"
+            id="name"
             required
             disabled={isLoading}
-            placeholder="exemple@email.com"
+            placeholder="Joao da Silva"
           />
           {errors.email?.message && (
             <ErrorInput message={errors.email.message} />
+          )}
+          <Label htmlFor="password">EMAIL</Label>
+          <Input
+            type="email"
+            label="email"
+            required
+            register={register}
+            id="email"
+            disabled={isLoading}
+            placeholder="email@exemple.com"
+          />
+          {errors.password?.message && (
+            <ErrorInput message={errors.password?.message} />
           )}
           <Label htmlFor="password">PASSWORD</Label>
           <Input
@@ -59,7 +74,7 @@ function LoginPage() {
             <ErrorInput message={errors.password?.message} />
           )}
           <Button type="submit" disabled={isLoading}>
-            ENTRAR
+            REGISTRAR
           </Button>
         </Form>
         <div className="w-full h-10 bg-zinc-900 text-zinc-300 border border-zinc-500 flex justify-center items-center"></div>
@@ -68,5 +83,3 @@ function LoginPage() {
     </>
   );
 }
-
-export default LoginPage;

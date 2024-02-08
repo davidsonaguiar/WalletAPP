@@ -4,17 +4,18 @@ import { DashboadLayout } from "./layouts/dashboard.layout";
 import Home from "./pages/home.page";
 import Summary from "./pages/Summay";
 import Meta from "./pages/Meta";
-import Register from "./pages/Register";
 import Login from "./pages/login.page";
-import { ProtectLayout } from "./layouts/authentication.layout";
+import { PrivateLayout } from "./layouts/private.layout";
+import { RegisterPage } from "./pages/register.page";
+import { PublicLayout } from "./layouts/public.layout";
 
 const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <ProtectLayout>
+      <PrivateLayout>
         <DashboadLayout />
-      </ProtectLayout>
+      </PrivateLayout>
     ),
     children: [
       {
@@ -32,12 +33,18 @@ const router = createBrowserRouter([
     ]
   }, 
   {
-    path: "/register",
-    element: <Register />
-  },
-  {
     path: "/",
-    element: <Login />
+    element: <PublicLayout />,
+    children: [
+      {
+        path: "/register",
+        element: <RegisterPage />
+      },
+      {
+        path: "/",
+        element: <Login />
+      }
+    ]
   }
 ])
 

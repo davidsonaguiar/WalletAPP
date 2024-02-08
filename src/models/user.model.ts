@@ -4,7 +4,10 @@ export interface User {
   password: string;
 }
 
-export type UserWhithoutPassword = Omit<User, 'password'>;
+export interface UserWhithoutPassword {
+  name: string;
+  email: string;
+};
 
 export interface AuthenticateRequest {
   email: string;
@@ -14,4 +17,10 @@ export interface AuthenticateRequest {
 export interface AuthenticateResponse {
   user: User;
   token: string;
+}
+
+export interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
 }

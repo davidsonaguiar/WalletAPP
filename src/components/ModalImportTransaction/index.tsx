@@ -1,12 +1,12 @@
 import Modal from "../Modal";
 import HeaderSection from "../SectionHeader";
-import Button from "../Button";
+import Button from "../button";
 import Select from "../Select";
 import Papa, { ParseResult } from "papaparse";
 import { AiOutlinePlus, AiOutlineClose, AiOutlineFile } from 'react-icons/ai';
 import { Account } from '../../types/index';
 import { useState, FormEvent, ChangeEvent } from 'react';
-import api from "../../axios.instance";
+import api from "../../axios";
 
 interface ModalImportTransactionProps {
   visible: boolean;

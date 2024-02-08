@@ -1,8 +1,8 @@
 import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
-import Input from "../Input";
-import Button from "../Button";
-import api from "../../axios.instance";
+import {Input} from "../input";
+import Button from "../button";
+import api from "../../axios";
 import Select from "../Select";
 import { useState, ChangeEvent, useEffect, FormEvent } from 'react';
 import { AiOutlineSave, AiOutlineClose, AiOutlineDelete } from "react-icons/ai";
@@ -135,7 +135,6 @@ function ModalEditTransaction({
           label="Valor"
           id="value"
           value={inputs.value.toString()}
-          handleChange={handleChange}
         />
         <Input
           required
@@ -143,7 +142,6 @@ function ModalEditTransaction({
           id="date"
           type="date"
           value={inputs.date}
-          handleChange={handleChange}
         />
         <Select
           required
@@ -157,7 +155,6 @@ function ModalEditTransaction({
           label="Descrição"
           id="description"
           value={inputs.description}
-          handleChange={handleChange}
         />
       </Modal.Fields>
       <Modal.Buttons>

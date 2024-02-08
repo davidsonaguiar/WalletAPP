@@ -1,15 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import {Header} from "../components/header";
+import { LinkNavigation } from "../components/link.navigation";
 
 export function DashboadLayout() {
   return(
     <>
-      <Header />
-      <main className="main">
+      <Header>
+        <LinkNavigation to="/dashboard" label="Início"/>
+      </Header>
+      <main className="w-full h-screen bg-zinc-800 text-zinc-300">
         <Outlet />
       </main>
-      <Footer />
     </>
   );
 }
