@@ -10,11 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/papaparse": "^5.3.9",
-    "@types/react-icons": "^3.0.0",
-    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.5.0",
     "papaparse": "^5.4.1",
+    "primereact": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
@@ -23,10 +21,12 @@
     "sonner": "^1.4.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
     "@types/node": "^20.8.8",
+    "@types/papaparse": "^5.3.9",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/react-icons": "^3.0.0",
+    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
