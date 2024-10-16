@@ -1,67 +1,54 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { UserWhithoutPassword } from "../models/user.model";
-import api  from "../axios.instance";
+import { login } from "../../services/auth/login";
+import {
+    getUserLocalStorage,
+    saveUserLocalStorage,
+    removeUserLocalStorage,
+} from "../../services/auth/local-storage";
 
 interface AuthenticationContextProps {
-  isAuthenticaded: boolean;
-  user: UserWhithoutPassword | null;
-  isLoading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signOut: () => void;
+    user: UserWhithoutPassword | null;
+    isAuthenticaded: boolean;
+    isLoading: boolean;
+    signIn: (email: string, password: string) => Promise<void>;
+    signOut: () => void;
 }
 
-export const AuthenticationContext = createContext<AuthenticationContextProps | null>(
-  null
-);
+export const AuthenticationContext = createContext<AuthenticationContextProps | null>(null);
 
 export function AuthenticationProvider(props: { children: ReactNode }) {
+    const [user, setUser] = useState<UserWhithoutPassword | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const [ user, setUser ] = useState<UserWhithoutPassword | null>(null);
-  const [ isLoading, setIsLoading ] = useState(false);
+    useEffect(() => {
+        const user = getUserLocalStorage();
+        if (user) setUser(user);
+    }, []);
 
-  useEffect(() => {
-    const storagedUser = localStorage.getItem("user");
-    if (storagedUser) setUser(JSON.parse(storagedUser));
-  }, [])
-
-  function setUserStorage(user: UserWhithoutPassword | null) {
-    localStorage.setItem("user", JSON.stringify(user));
-  }
-
-  function removeUserStorage() {
-    localStorage.removeItem("user");
-  }
-  
-  async function signIn(email: string, password: string) {
-    setIsLoading(true);
-    try {
-      const response = await api(
-        "login",
-        {
-          method: "POST",
-          data: {
-            email,
-            password
-          },
-          withCredentials: true
+    async function signIn(email: string, password: string) {
+        try {
+            setIsLoading(true);
+            const user = await login({ email, password });
+            saveUserLocalStorage(user);
+            setUser(user);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
         }
-      );
-      setUserStorage(response.data);
-      setUser(response.data);
-    } catch(error) {
-      console.log(error);
     }
-    setIsLoading(false)
-  }
-  
-  function signOut() {
-    setUser(null);
-    removeUserStorage();
-  }
 
-  return (
-    <AuthenticationContext.Provider value={{isAuthenticaded: !!user, user, isLoading, signIn, signOut}}>
-      {props.children}
-    </AuthenticationContext.Provider>
-  );
+    function signOut() {
+        setUser(null);
+        removeUserLocalStorage();
+    }
+
+    return (
+        <AuthenticationContext.Provider
+            value={{ isAuthenticaded: !!user, user, isLoading, signIn, signOut }}
+        >
+            {props.children}
+        </AuthenticationContext.Provider>
+    );
 }

@@ -1,522 +1,520 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font: 14px 'Ubuntu', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: 14px "Ubuntu", sans-serif;
 }
 
-html, body {
-  width: 100%;
-  min-height: 100vh;
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
 
-  background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
 
 #root {
-  height: 100vh;
+    height: 100vh;
 
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .main {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
 .button {
-  width: 150px;
+    width: 150px;
 
-  background-color: #333333;
-  border: none;
-  border-left: 1px solid #666666;
+    background-color: #333333;
+    border: none;
+    border-left: 1px solid #666666;
 
-  color: #FFFFFF;
-  font-size: 14px;
+    color: #ffffff;
+    font-size: 14px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 
-  transition: .3s ease-in;
-  cursor: pointer;
+    transition: 0.3s ease-in;
+    cursor: pointer;
 }
 
 .button:hover.confirm {
-  background-color: #AAAAFD;
+    background-color: #aaaafd;
 }
 
 .button:hover.default {
-  background-color: #666666;
+    background-color: #666666;
 }
 
 .button:hover.delete {
-  background-color: #fc4622;
+    background-color: #fc4622;
 }
 
 .header-container {
-  width: 100%;
-  height: 64px;
-  padding-left: 36px;
+    width: 100%;
+    height: 64px;
+    padding-left: 36px;
 
-  background-color: #333333;
-  border-bottom: 1px solid #666666;
+    background-color: #333333;
+    border-bottom: 1px solid #666666;
 
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .header-title {
-  padding: 12px 0;
+    padding: 12px 0;
 
-  color: #FFFFFF;
-  font-size: 36px;
-  font-weight: 700;
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 700;
 
-  display: block;
+    display: block;
 }
 
 .header-nav {
-  height: 100%;
-  margin-left: auto;
+    height: 100%;
+    margin-left: auto;
 }
 
 .header-list-link,
-.header-list-link  li,
-.header-list-link  a {
-  height: 100%;
-  list-style: none;
-  text-decoration: none;
-  text-transform: uppercase;
+.header-list-link li,
+.header-list-link a {
+    height: 100%;
+    list-style: none;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 .header-list-link {
-  display: flex;
+    display: flex;
 }
 
 .header-button {
-  width: 150px;
+    width: 150px;
 
-  background-color: #333333;
-  border: none;
-  border-left: 1px solid #666666;
+    background-color: #333333;
+    border: none;
+    border-left: 1px solid #666666;
 
-  color: #FFFFFF;
-  font-size: 14px;
+    color: #ffffff;
+    font-size: 14px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 
-  cursor: pointer;
-  transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.3s ease-in;
 }
 
 .header-button:hover {
-  background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
-
 
 /* Section Accounts */
 
 .section-header-container {
-  width: 100%;
-  padding-left: 36px;
+    width: 100%;
+    padding-left: 36px;
 
-  background-color: #333333;
-  border-bottom: 1px solid #666666;
+    background-color: #333333;
+    border-bottom: 1px solid #666666;
 
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .section-header-title {
-  padding: 12px 0;
-  color: #FFFFFF;
-  font-size: 20px;
+    padding: 12px 0;
+    color: #ffffff;
+    font-size: 20px;
 
-  display: block;
+    display: block;
 }
 
 .section-header-buttons {
-  display: flex;
+    display: flex;
 }
 
 .account-list-container {
-  width: 100%;
-  padding: 12px 36px;
+    width: 100%;
+    padding: 12px 36px;
 
-  background-color: #3F3F3F;
-  border-bottom: 1px solid #666666;
+    background-color: #3f3f3f;
+    border-bottom: 1px solid #666666;
 }
 
 .account-list-list {
-  display: flex;
-  align-items: center;
-  overflow: auto;
-  gap: 36px;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    gap: 36px;
 }
 
 .account-card-container {
-  width: 250px;
-  min-width: 250px;
-  height: 160px;
+    width: 250px;
+    min-width: 250px;
+    height: 160px;
 
-  background-color: #FFFFFF;
-  display: flex;
-  flex-direction: column;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
 
-  flex: 1 0 none;
+    flex: 1 0 none;
 }
 
 .account-card-header {
-  width: 100%;
-  min-height: 38px;
-  
-  border-bottom: 1px solid #C5C5C5;
-  
-  display: flex;
-  justify-content: space-between;
+    width: 100%;
+    min-height: 38px;
+
+    border-bottom: 1px solid #c5c5c5;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .account-card-header-title {
-  padding: 8px 12px;
-  color: #333333;
-  font-size: 18px;
+    padding: 8px 12px;
+    color: #333333;
+    font-size: 18px;
 
-  display: block;
+    display: block;
 }
 
 .account-card-header-input {
-  width: 100%;
-  height: 37px;
-  padding:0 8px;
+    width: 100%;
+    height: 37px;
+    padding: 0 8px;
 
-  border: 1px solid #9999FF;
+    border: 1px solid #9999ff;
 }
 
 .account-card-header-input:focus {
-  outline: 2px solid #9999FF;
+    outline: 2px solid #9999ff;
 }
 
 .account-card-header-button {
-  width: 40px;
-  min-width: 40px;
+    width: 40px;
+    min-width: 40px;
 
-  background: none;
-  border: none;
-  border-left: 1px solid #C5C5C5;
+    background: none;
+    border: none;
+    border-left: 1px solid #c5c5c5;
 
-  display: grid;
-  place-content: center;
+    display: grid;
+    place-content: center;
 
-  cursor: pointer;
-  transition: .2s ease-in;
+    cursor: pointer;
+    transition: 0.2s ease-in;
 }
 
 .account-card-value {
-  width: 100%;
-  height: 100%;
-  padding: 12px;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
 
-  color: #333333;
-  font-size: 36px;
-  text-align: right;
+    color: #333333;
+    font-size: 36px;
+    text-align: right;
 
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .no-account-container {
-  width: 250px;
-  height: 160px;
-  padding: 18px;
-  margin: 0 auto;
+    width: fit-content;
+    max-width: 300px;
+    height: 160px;
+    padding: 18px;
+    margin: 12px auto;
 
-  background-color: #FFFFFF;
-  border: 1px solid #3F3F3F;
+    background-color: #ffffff;
+    border: 1px solid #3f3f3f;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .no-account-message {
-  margin-bottom: 8px;
+    margin-bottom: 8px;
 
-  color: #333333;
-  font-size: 18px;
-  font-weight: 500;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .no-account-tip {
-  color: #666666; 
-  text-align: center;
-  font-size: 14px;
+    color: #666666;
+    text-align: center;
+    font-size: 14px;
 }
 
 /* Transction Table */
 
 .transaction-table-container {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 
-  background-color: #3F3F3F;
-  display: flex;
-  flex-direction: column;
+    background-color: #3f3f3f;
+    display: flex;
+    flex-direction: column;
 
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .transaction-table-header {
-  width: 100%;
-  padding: 12px 0;
-  
-  background-color: #FFFFFF;
-  border-bottom: #C5C5C5;
+    width: 100%;
+    padding: 12px 0;
 
-  display: flex;
-  justify-content: center;
+    background-color: #ffffff;
+    border-bottom: #c5c5c5;
+
+    display: flex;
+    justify-content: center;
 }
 
 .transaction-table-header-col {
-  width: 100%;
+    width: 100%;
 
-  color: #333333;
-  font-size: 18px;
+    color: #333333;
+    font-size: 18px;
 
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 .transaction-table-body {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
 .transaction-register-container {
-  width: 100%;
-  padding: 12px 0;
+    width: 100%;
+    padding: 12px 0;
 
-  border-bottom: 1px solid #666666;
+    border-bottom: 1px solid #666666;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  transition: .2S ease-in;
+    transition: 0.2s ease-in;
 }
 
 .transaction-register-edit,
 .transaction-register-delete {
-  width: 40px;
-  min-width: 40px;
-  height: 40px;
-  margin: auto;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    margin: auto;
 
-  background: none;
-  border: none;
+    background: none;
+    border: none;
 
-  color: #FFFFFF;
+    color: #ffffff;
 
-  display: grid;
-  place-content: center;
+    display: grid;
+    place-content: center;
 
-  cursor: pointer;
-  transition: .2s ease-in;
+    cursor: pointer;
+    transition: 0.2s ease-in;
 }
 
 .transaction-register-edit:hover {
-  color: #9999FF;
-  background-color: #aaaafd47;
+    color: #9999ff;
+    background-color: #aaaafd47;
 }
 
 .transaction-register-delete:hover {
-  color: #FFFFFF;
-  background-color: #fc46223b;
+    color: #ffffff;
+    background-color: #fc46223b;
 }
 
-
 .transaction-register-container > td {
-  width: 100%;
+    width: 100%;
 
-  color: #FFFFFF;
-  font-size: 18px;
+    color: #ffffff;
+    font-size: 18px;
 
-  text-align: center;
+    text-align: center;
 
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .transaction-register-container:hover > td {
-  color: #9999FF;
+    color: #9999ff;
 }
 
 .transaction-register-container.alert > td,
-.transaction-register-container.warning > td  {
-  color: #333333;
+.transaction-register-container.warning > td {
+    color: #333333;
 }
 
 .alert .transaction-register-edit,
 .warning .transaction-register-edit,
 .alert .transaction-register-delete,
 .warning .transaction-register-delete {
-  color: #333333;
+    color: #333333;
 }
 
 .alert .transaction-register-edit:hover,
 .warning .transaction-register-edit:hover,
 .alert .transaction-register-delete:hover,
 .warning .transaction-register-delete:hover {
-  background-color: #ffffff5c;
+    background-color: #ffffff5c;
 }
-
 
 /* Footer */
 
 .footer-container {
-  padding: 16px 36px;
+    padding: 16px 36px;
 
-  background-color: #333333;
-  border-top: 1px solid #666666;
+    background-color: #333333;
+    border-top: 1px solid #666666;
 }
 
 .footer-title {
-  color: #FFFFFF;
-  font-size: 18px;
-  text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
 }
 
 .footer-title-link {
-  margin-left: 8px;
+    margin-left: 8px;
 
-  color: #AAAAFD;
-  font-size: inherit;
-  text-decoration: none;
+    color: #aaaafd;
+    font-size: inherit;
+    text-decoration: none;
 }
-
 
 /********************************/
 /* LOGIN */
 /********************************/
 
 .login-container {
-  width: 100%;
-  max-width: 450px;
-  margin: auto;
-  padding: 0 36px;
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    padding: 0 36px;
 
-  background-color: #333333;
-  border: 1px solid #666666;
+    background-color: #333333;
+    border: 1px solid #666666;
 }
 
 .login-title {
-  width: 100%;
-  padding: 1rem;
-  
-  border: 1px solid #666666;
-  border-top: none;
+    width: 100%;
+    padding: 1rem;
 
-  color: #FFFFFF;
-  font-size: 36px;
-  font-weight: 600;
+    border: 1px solid #666666;
+    border-top: none;
+
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 600;
 }
 
 .login-form {
-  width: 100%;
-  
-  border: 1px solid #666666;
-  border-top: none;
+    width: 100%;
+
+    border: 1px solid #666666;
+    border-top: none;
 }
 
 .login-form-label {
-  width: 100%;
-  padding: 1rem;
+    width: 100%;
+    padding: 1rem;
 
-  color: #FFFFFF;
-  font-size: 18px;
+    color: #ffffff;
+    font-size: 18px;
 
-  display: block;
+    display: block;
 }
 
 .login-form-input {
-  width: 100%;
-  height: 50px;
-  padding-left: 1rem;
-  
-  border: none;
+    width: 100%;
+    height: 50px;
+    padding-left: 1rem;
+
+    border: none;
 }
 
 .login-form-button {
-  width: 100%;
-  height: 50px;
-  margin-top: 2rem;
+    width: 100%;
+    height: 50px;
+    margin-top: 2rem;
 
-  background-color: #9999FF;
-  border: none;
+    background-color: #9999ff;
+    border: none;
 
-  color: #FFFFFF;
-  font-size: 20px;
+    color: #ffffff;
+    font-size: 20px;
 
-  cursor: pointer;
-  transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.3s ease-in;
 }
 
 .login-form-button:hover {
-  background-color: #AAAAFD;
+    background-color: #aaaafd;
 }
 
 .login-or {
-  padding: 1rem;
+    padding: 1rem;
 
-  border: 1px solid #666666;
+    border: 1px solid #666666;
 
-  color: #FFFFFF;
-  font-size: 16px;
-  text-align: center;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
 
-  display: block;
+    display: block;
 }
 
 .login-button-register {
-  width: 100%;
-  height: 50px;
+    width: 100%;
+    height: 50px;
 
-  background-color: #333333;
-  border: 1px solid #FFFFFF;
+    background-color: #333333;
+    border: 1px solid #ffffff;
 
-  color: #FFFFFF;
-  font-size: 18px;
+    color: #ffffff;
+    font-size: 18px;
 
-  cursor: pointer;
-  transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.3s ease-in;
 }
 
 .login-button-register:hover {
-  background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
 
 .login-border-bottom {
-  height: 36px;
-  border-left: 1px solid #666666;
-  border-right: 1px solid #666666;
+    height: 36px;
+    border-left: 1px solid #666666;
+    border-right: 1px solid #666666;
 }
 
 /********************************/
@@ -524,216 +522,215 @@ html, body {
 /********************************/
 
 .modal-background {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
 
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-container {
-  width: 100%;
-  max-width: 450px;
-  padding: 0 24px;
+    width: 100%;
+    max-width: 450px;
+    padding: 0 24px;
 
-  background-color: #333333;
-  border: 1px solid #666666;
+    background-color: #333333;
+    border: 1px solid #666666;
 }
 
-
 .modal-fields {
-  border: 1px solid #666666;
-  border-top: none;
+    border: 1px solid #666666;
+    border-top: none;
 }
 
 .modal-fields-label {
-  width: 100%;
-  height: 40px;
-  padding-left: 1rem;
+    width: 100%;
+    height: 40px;
+    padding-left: 1rem;
 
-  border: none;
-  border-bottom: 1px solid #666666;
+    border: none;
+    border-bottom: 1px solid #666666;
 
-  color: #FFFFFF;
-  font-size: 16px;
+    color: #ffffff;
+    font-size: 16px;
 
-  display: flex;
-  align-items: center;
-} 
+    display: flex;
+    align-items: center;
+}
 
 .modal-fields-input {
-  width: 100%;
-  height: 40px;
-  padding: 0 1rem;
+    width: 100%;
+    height: 40px;
+    padding: 0 1rem;
 
-  border: none;
+    border: none;
 }
 
 .modal-buttons {
-  height: 50px;
+    height: 50px;
 
-  border: 1px solid #666666;
-  border-top: none;
+    border: 1px solid #666666;
+    border-top: none;
 
-  display: flex;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .border-bottom-none {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .border-top {
-  border-top: 1px solid #666666;
+    border-top: 1px solid #666666;
 }
 
 /* Categoria */
 
 .categoryList {
-  height: 300px;
+    height: 300px;
 
-  background-color: #3F3F3F;
-  border: 1px solid #666666;
-  border-top: none;
+    background-color: #3f3f3f;
+    border: 1px solid #666666;
+    border-top: none;
 
-  display: flex;
-  flex-direction: column;
-  list-style: none;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
 
-  overflow: auto;
+    overflow: auto;
 }
 
 .category-name {
-  height: 40px;
-  width: 100%;
-  padding-left: 5px;
+    height: 40px;
+    width: 100%;
+    padding-left: 5px;
 
-  color: #FFFFFF;
+    color: #ffffff;
 
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .category-edit {
-  width: 100%;
-  display: flex;
+    width: 100%;
+    display: flex;
 }
 
 .category-edit-input {
-  width: 100%;
-  height: 40px;
-  border: none;
+    width: 100%;
+    height: 40px;
+    border: none;
 }
 
 /* Import FILE */
 
 .input-file-container {
-  width: 100%;
-  height: 50px;
+    width: 100%;
+    height: 50px;
 
-  background-color: #333333;
+    background-color: #333333;
 
-  display: flex;
+    display: flex;
 }
 
 .imput-file-label {
-  width: 100%;
-  
-  border: 1px solid #FFFFFF;
+    width: 100%;
 
-  color: #FFFFFF;
+    border: 1px solid #ffffff;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+    color: #ffffff;
 
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    cursor: pointer;
 }
 
 .imput-file-label:hover {
-  background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
 
 .input-file {
-  display: none;
+    display: none;
 }
 
 .transaction-card-value {
-  width: 100%;
-  padding: 12px;
+    width: 100%;
+    padding: 12px;
 
-  color: #333333;
-  font-size: 24px;
-  text-align: right;
+    color: #333333;
+    font-size: 24px;
+    text-align: right;
 
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .label-month {
-  height: 50px;
-  width: 150px;
-  margin-left: auto;
+    height: 50px;
+    width: 150px;
+    margin-left: auto;
 
-  color: #FFFFFF;
-  font-size: 14px;
-  text-transform: uppercase;
+    color: #ffffff;
+    font-size: 14px;
+    text-transform: uppercase;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .select-month {
-  height: 50px;
-  width: 150px;
-  padding: 0 24px;
+    height: 50px;
+    width: 150px;
+    padding: 0 24px;
 
-  background-color: #333333;
-  border: none;
-  border-left: 1px solid #666666;
+    background-color: #333333;
+    border: none;
+    border-left: 1px solid #666666;
 
-  color: #FFFFFF;
-  font-size: 14px;
+    color: #ffffff;
+    font-size: 14px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 
-  cursor: pointer;
-  transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.3s ease-in;
 }
 
 .select-month:hover {
-  background-color: #3F3F3F;
+    background-color: #3f3f3f;
 }
 
 .summary {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .alert {
-  background-color: #ffbcaf;
+    background-color: #ffbcaf;
 }
 
 .warning {
-  background-color: #ffeeb0 !important;
+    background-color: #ffeeb0 !important;
 }
 
 button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+    cursor: not-allowed;
+    opacity: 0.5;
 }

@@ -6,7 +6,7 @@ export interface User {
 
 export type UserWhithoutPassword = Omit<User, 'password'>;
 
-export interface AuthenticateRequest {
+export interface Login {
   email: string;
   password: string;
 }

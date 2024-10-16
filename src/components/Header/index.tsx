@@ -1,10 +1,13 @@
 import { BiLogOut } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { useAuthentication } from "../../hooks/useAuhentication";
 
 function Header() {
 
-  const { signOut } = useAuthentication();
+  function signOut() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }
 
   return(
     <header className="header-container">
