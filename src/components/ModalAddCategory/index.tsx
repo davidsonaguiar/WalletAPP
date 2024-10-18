@@ -1,45 +1,28 @@
+import { axios } from "../../../lib/axios";
+import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
+import { FormEvent, useState } from "react";
 import Modal from "../Modal";
 import SectionHeader from "../SectionHeader";
 import Input from "../Input";
 import Button from "../Button";
-import { axios } from "../../../lib/axios";
-import { Category } from "../../types";
-import { FormEvent, useState, useEffect } from "react";
-import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
-import ItemCategoryList from "./ItemCategoryList";
 import Select from "../Select";
+import CategoryList from "../category-list";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface ModalAddCategoryProps {
     visible: boolean;
     handleClick: (event?: FormEvent) => void;
 }
 
+interface Category {
+    name: string;
+    type: string;
+}
+
 function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
     const [deleted, setDeleted] = useState(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-    const [name, setName] = useState<string>("");
-    const [type, setType] = useState<string>("");
-    const [categories, setCategories] = useState<Category[]>([]);
-
-    async function getCategories() {
-        const response = await axios.get("/categories");
-        if (response.status === 200) {
-            const date = await response.data;
-            setCategories(date);
-        }
-    }
-
-    async function addCategory(event: FormEvent) {
-        event.preventDefault();
-        const response = await axios.post("/categories", { name, type });
-
-        if (response.status === 201) {
-            console.log("Categoria adicionada com sucesso.");
-            setName("");
-            setType("");
-            getCategories();
-        }
-    }
 
     function updateEdit(edit: boolean) {
         setIsEdit(edit);
@@ -49,25 +32,26 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
         setDeleted((prev) => !prev);
     }
 
-    useEffect(() => {
-        if (visible) {
-            getCategories();
-        }
-    }, [isEdit, visible, deleted]);
+    const queryClient = useQueryClient();
+    const { register, handleSubmit } = useForm<Category>();
 
-    const categoriesList = categories
-        .filter((category: Category) => category.user_id)
-        .map((category: Category) => (
-            <ItemCategoryList
-                category={category}
-                deleted={changeDelete}
-                isEdit={updateEdit}
-                key={category.id}
-            />
-        ));
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (data: Category) => {
+            const response = await axios.post("/categories", data);
+            return response.data;
+        },
+        onSuccess: () => {
+            console.log("Categoria adicionada com sucesso!");
+            queryClient.invalidateQueries({ queryKey: ["categories"] });
+        },
+    });
+
+    async function onSubmit(data: Category) {
+        mutate(data);
+    }
 
     return (
-        <Modal.Container visible={visible} handleSubmit={addCategory} method="post">
+        <Modal.Container visible={visible} handleSubmit={handleSubmit(onSubmit)} method="post">
             <Modal.Fields>
                 <SectionHeader.Container>
                     <SectionHeader.Title text="Adicionar Categoria" />
@@ -78,24 +62,35 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
                         handleClick={handleClick}
                     />
                 </SectionHeader.Container>
-                <Input
-                    required
-                    minLength={3}
-                    maxLength={30}
+
+                <label htmlFor="name" className="modal-fields-label">
+                    NAME
+                </label>
+                <input
                     type="text"
-                    label="Name"
                     id="name"
-                    value={name}
-                    handleChange={(event) => setName(event.target.value)}
+                    className="modal-fields-input"
+                    placeholder="Nome da categoria"
+                    {...register("name", { required: true, minLength: 3, maxLength: 30 })}
+                    disabled={isPending}
                 />
-                <Select
-                    required
+
+                <label htmlFor="type" className="modal-fields-label">
+                    TYPE
+                </label>
+                <select
                     id="type"
-                    label="Tipo"
-                    options={["Gastos", "Ganhos"]}
-                    value={type}
-                    handleChange={(event) => setType(event.target.value)}
-                />
+                    className="modal-fields-input"
+                    {...register("type", { required: true })}
+                    disabled={isPending}
+                >
+                    <option value="" disabled selected>
+                        Selecione uma Opção
+                    </option>
+                    <option value="INPUT">INPUT</option>
+                    <option value="OUTPUT">OUTPUT</option>
+                </select>
+                
             </Modal.Fields>
             <Modal.Buttons>
                 <Button
@@ -105,7 +100,7 @@ function ModadAddCategory({ visible, handleClick }: ModalAddCategoryProps) {
                     icon={AiOutlinePlus}
                 />
             </Modal.Buttons>
-            <ul className="categoryList">{categoriesList}</ul>
+            <CategoryList />
         </Modal.Container>
     );
 }

@@ -1,7 +1,7 @@
 import { AiOutlineCheck, AiOutlineClose, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { Category } from "../../types";
 import { useState, FormEvent, ChangeEvent } from "react";
 import { axios } from "../../../lib/axios";
+import { Category } from "../category-list";
 
 interface ItemCategoryListProps {
     category: Category;
@@ -50,7 +50,10 @@ function ItemCategoryList({ category, isEdit, deleted }: ItemCategoryListProps) 
         <li className="account-card-header">
             {!edit ? (
                 <>
-                    <span className="category-name">{category.name}</span>
+                    <p className="category-name">
+                        <span>{category.name}</span>
+                        <span className={`category-type ${category.type}`}>{category.type}</span>
+                    </p>
                     <button className="account-card-header-button edit" onClick={changeEdit}>
                         <AiOutlineEdit size={18} color="#FFFFFF" />
                     </button>

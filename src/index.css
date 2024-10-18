@@ -608,15 +608,36 @@ body {
 }
 
 .category-name {
-    height: 40px;
+    
     width: 100%;
-    padding-left: 5px;
+    padding: 0 5px;
 
     color: #ffffff;
 
-    display: flex;
+    display: grid;
     align-items: center;
+    grid-template-columns: 1fr 70px;
+    justify-content: space-between;
     gap: 5px;
+}
+
+.category-name > span {
+    height: 40px;
+    line-height: 40px;
+}
+
+.category-type {
+    padding-left: 5px;
+    border-left: 1px solid #fff;
+    text-align: center  ;
+}
+
+.category-type.INPUT {
+    color: #9999ff;
+}
+
+.category-type.OUTPUT {
+    color: #fc4622;
 }
 
 .category-edit {
