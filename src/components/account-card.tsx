@@ -1,14 +1,13 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
-import { axios } from "../../../lib/axios";
-import AccountEditForm from "../account-edit-form";
+import { useState } from "react";
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { axios } from "../../lib/axios";
+import AccountEditForm from "./account-edit-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface AccountCardProps {
     id: string;
     title: string;
-    value: number;
-    edit: (status: boolean) => void;
+    balance: number;
 }
 
 async function deleteAccount(id: string) {
@@ -16,7 +15,7 @@ async function deleteAccount(id: string) {
     return await response.data;
 }
 
-function AccountCard({ id, title, value, edit }: AccountCardProps) {
+function AccountCard({ id, title, balance }: AccountCardProps) {
     const [editCard, setEditCard] = useState<boolean>(false);
 
     const clientQuery = useQueryClient();
@@ -59,7 +58,7 @@ function AccountCard({ id, title, value, edit }: AccountCardProps) {
                 )}
             </span>
             <span className="account-card-value">
-                {value?.toLocaleString("pt-BR", {
+                {balance?.toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                 })}

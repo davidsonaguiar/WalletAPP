@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { axios } from "../../lib/axios";
-import ItemCategoryList from "./ModalAddCategory/ItemCategoryList";
+import ItemCategoryList from "./category-item";
 
 export interface Category {
     id: number;

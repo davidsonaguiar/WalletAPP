@@ -159,7 +159,7 @@ function HomePage() {
                     />
                 ))}
             </TransactionTable>
-            <ModadAddCategory visible={state.addCategory} handleClick={addCategory} />
+            { state.addCategory && <ModadAddCategory handleClick={addCategory} />}
             <ModalAddAccount visible={state.addAccount} handleClick={addAccount} />
             <ModalAddTransaction
                 visible={state.addTransaction}

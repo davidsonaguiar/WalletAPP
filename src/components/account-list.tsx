@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAccounts } from "../../services/account/getAccounts";
-import AccountCard from "./AccountCard";
+import AccountCard from "./account-card";
 import NoAccount from "./NoAccount";
 
 export default function AccountList() {
@@ -41,11 +41,10 @@ export default function AccountList() {
             <ul className="account-list-list">
                 {data?.map((account) => (
                     <AccountCard
-                        edit={() => ""}
                         key={account.id}
                         id={account.id}
                         title={account.name}
-                        value={2000}
+                        balance={account?.balance}
                     />
                 ))}
             </ul>

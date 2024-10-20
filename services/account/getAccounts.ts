@@ -3,6 +3,7 @@ import { axios } from "../../lib/axios";
 export interface getAccountsOutput {
     id: string;
     name: string;
+    balance: number;
 }
 
 export async function getAccounts(): Promise<getAccountsOutput[] | null> {
